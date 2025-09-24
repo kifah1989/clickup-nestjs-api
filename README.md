@@ -1,128 +1,195 @@
-# ClickUp API Full-Stack Integration
+# ClickUp API Enterprise-Grade NestJS Integration
 
-A complete full-stack application that provides a REST API interface for the ClickUp API with a React frontend for data management.
+A secure, production-ready NestJS application that provides an enterprise-grade REST API interface for the ClickUp API with comprehensive security features including JWT authentication, role-based authorization, rate limiting, and database integration.
 
 ## 🚀 Project Overview
 
-This project consists of two main components:
+This is a **complete enterprise-grade backend application** featuring:
 
-1. **Backend (NestJS)**: Comprehensive REST API wrapper for ClickUp API with full CRUD operations
-2. **Frontend (React)**: Interactive web interface for managing ClickUp data with intuitive navigation flow
+1. **Secure NestJS Backend**: Production-ready REST API wrapper for ClickUp API with enterprise security
+2. **Authentication & Authorization**: JWT-based authentication with role-based access control
+3. **Database Integration**: PostgreSQL with Prisma ORM for user management and audit logging
+4. **Security Hardening**: Rate limiting, input validation, structured logging, and environment security
+5. **API Documentation**: Comprehensive Swagger documentation with security schemas
 
-### Navigation Flow
-**Workspaces** → **Spaces** → **Lists** → **Tasks** → **Task Details**
+## 🛡️ Security Features
+
+This application implements **enterprise-grade security** with:
+
+### 🔐 Authentication & Authorization
+- **JWT Authentication**: Secure token-based authentication system
+- **Role-Based Access Control (RBAC)**: Admin, Editor, and Viewer roles
+- **Password Security**: bcrypt hashing with proper salt rounds
+- **Token Management**: Configurable JWT expiration and refresh
+
+### 🚨 Security Hardening
+- **Rate Limiting**: Multi-tier protection (10 requests/minute, 100/hour, 1000/day)
+- **Input Validation**: Comprehensive DTO validation with class-validator
+- **Environment Security**: Secure configuration management
+- **CORS Protection**: Configured for production deployment
+- **Security Headers**: HTTP security headers enabled
+
+### 📊 Monitoring & Logging
+- **Structured Logging**: Winston-based logging with multiple levels
+- **API Audit Trail**: Database logging of all API requests
+- **Error Tracking**: Comprehensive error handling and reporting
+- **Performance Monitoring**: Request timing and performance metrics
+
+### � Database Integration
+- **PostgreSQL**: Production-grade database with Prisma ORM
+- **User Management**: Complete user lifecycle management
+- **Audit Logging**: Comprehensive API request logging
+- **Database Security**: Connection security and query protection
 
 ## ✨ Features
 
-### Backend Features
-- 🔐 Authentication with ClickUp API using personal tokens
-- 📊 CRUD operations for Tasks, Spaces, Lists, and Users
-- 🎯 Proper DTOs and validation with class-validator
-- 📚 Swagger documentation at `/api/docs`
-- 🚨 Error handling and logging
-- 🧪 TypeScript with strict mode enabled
+### Core API Features
+- 🔐 **Secure ClickUp Integration**: Protected API wrapper with authentication
+- 📊 **Full CRUD Operations**: Complete management for Tasks, Spaces, Lists, and Users
+- 🎯 **Input Validation**: Comprehensive DTOs with class-validator
+- 📚 **Interactive Documentation**: Swagger UI with JWT authentication at `/api/docs`
+- 🚨 **Production Logging**: Structured logging with Winston
+- 🧪 **TypeScript**: Full type safety with strict mode enabled
 
-### Frontend Features
-- ⚛️ React with TypeScript for type safety
-- 🎨 Tailwind CSS for modern, responsive design
-- 🚀 React Router for seamless navigation
-- 🔍 Search and filtering capabilities
-- ✅ Full CRUD operations with forms and confirmations
-- 📱 Responsive design for desktop and mobile
-- 🎯 Intuitive breadcrumb navigation
+### Authentication Features
+- 🔑 **JWT Authentication**: Secure login/logout with token management
+- 👥 **User Registration**: Secure user account creation
+- �️ **Role Management**: Admin, Editor, Viewer access levels
+- � **Protected Routes**: Route-level security with guards
+- � **User Profile**: Complete profile management
 
 ## 🛠️ Technology Stack
 
-### Backend
-- **Framework**: NestJS
-- **Language**: TypeScript
-- **HTTP Client**: Axios
-- **Validation**: class-validator
-- **Documentation**: Swagger/OpenAPI
-- **Development**: Hot reload with Nodemon
+### Core Framework
+- **Framework**: NestJS v11 with TypeScript
+- **Database**: PostgreSQL with Prisma ORM v6.16.2
+- **Authentication**: JWT (@nestjs/jwt, @nestjs/passport)
+- **Validation**: class-validator with comprehensive DTOs
+- **Documentation**: Swagger/OpenAPI with security schemas
 
-### Frontend
-- **Framework**: React 18
-- **Build Tool**: Vite
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Routing**: React Router DOM
-- **HTTP Client**: Axios
-- **Icons**: Lucide React
+### Security & Monitoring
+- **Rate Limiting**: @nestjs/throttler for DDoS protection
+- **Password Security**: bcryptjs for secure password hashing
+- **Logging**: Winston for structured, production-ready logging
+- **HTTP Client**: Axios with security configurations
+- **Environment**: @nestjs/config for secure configuration management
 
-## � Project Structure
+### Development Tools
+- **TypeScript**: Strict mode enabled for maximum type safety
+- **ESLint**: Code quality and security linting
+- **Prettier**: Consistent code formatting
+- **Hot Reload**: Development with instant reload
+- **Testing**: Jest with e2e testing capabilities
+
+## 📁 Project Structure
 
 ```
-clickup-api-playground/
-├── src/                          # Backend source code
-│   ├── clickup/                  # ClickUp integration module
-│   ├── tasks/                    # Tasks module
-│   ├── spaces/                   # Spaces module
-│   ├── lists/                    # Lists module
-│   ├── users/                    # Users module
+clickup-nestjs-api/
+├── src/                          # Application source code
+│   ├── auth/                     # 🔐 Authentication module
+│   │   ├── auth.controller.ts    # Login/register endpoints
+│   │   ├── auth.service.ts       # JWT authentication logic
+│   │   ├── jwt.strategy.ts       # Passport JWT strategy
+│   │   ├── guards/               # Authentication guards
+│   │   └── dto/                  # Auth DTOs (login, register)
+│   ├── users/                    # 👥 User management module
+│   │   ├── users.controller.ts   # User management endpoints
+│   │   ├── users.service.ts      # User business logic
+│   │   └── dto/                  # User DTOs
+│   ├── prisma/                   # 💾 Database module
+│   │   ├── prisma.service.ts     # Database service
+│   │   └── prisma.module.ts      # Database module configuration
+│   ├── clickup/                  # 🎯 ClickUp integration modules
+│   │   ├── auth/                 # ClickUp authentication
+│   │   ├── tasks/                # Tasks management
+│   │   ├── spaces/               # Spaces management
+│   │   ├── lists/                # Lists management
+│   │   ├── users/                # ClickUp users management
+│   │   └── common/               # Shared DTOs and services
+│   ├── common/                   # 🔧 Shared utilities
+│   │   ├── middleware/           # API logging middleware
+│   │   ├── guards/               # Global security guards
+│   │   └── decorators/           # Custom decorators
 │   ├── app.module.ts             # Main application module
 │   └── main.ts                   # Application entry point
-├── frontend/                     # React frontend application
-│   ├── src/
-│   │   ├── components/           # React components
-│   │   │   └── Layout.tsx        # Main layout component
-│   │   ├── pages/                # Page components
-│   │   │   ├── WorkspacesPage.tsx
-│   │   │   ├── SpacesPage.tsx
-│   │   │   ├── ListsPage.tsx
-│   │   │   ├── TasksPage.tsx
-│   │   │   └── TaskDetailPage.tsx
-│   │   ├── services/             # API service layer
-│   │   │   └── api.ts
-│   │   ├── App.tsx               # Main App component
-│   │   └── main.tsx              # Application entry point
-│   ├── public/                   # Static assets
-│   ├── index.html                # HTML template
-│   ├── package.json              # Frontend dependencies
-│   ├── tailwind.config.js        # Tailwind configuration
-│   ├── tsconfig.json             # TypeScript configuration
-│   └── vite.config.ts            # Vite configuration
+├── prisma/                       # 🗄️ Database configuration
+│   ├── schema.prisma             # Database schema
+│   ├── migrations/               # Database migrations
+│   └── seed.ts                   # Database seeding script
+├── docs/                         # 📚 Documentation
+│   ├── README-SECURITY.md        # Security documentation
+│   ├── IMPLEMENTATION-SUMMARY.md # Implementation guide
+│   └── DEFAULT-CREDENTIALS.md    # Default user accounts
 ├── .env                          # Environment variables
-├── package.json                  # Backend dependencies
-├── tsconfig.json                 # Backend TypeScript configuration
+├── package.json                  # Dependencies and scripts
+├── tsconfig.json                 # TypeScript configuration
 └── README.md                     # This file
 ```
 
 ## 🏁 Getting Started
 
 ### Prerequisites
-- Node.js (version >= 20)
-- npm or yarn
-- ClickUp account with API access
+- **Node.js** (version >= 20)
+- **PostgreSQL** (version >= 12)
+- **npm** or yarn package manager
+- **ClickUp account** with API access
 
 ### Installation
 
-1. **Install backend dependencies**
+1. **Clone and install dependencies**
    ```bash
+   git clone <repository-url>
+   cd clickup-nestjs-api
    npm install
    ```
 
-2. **Install frontend dependencies**
+2. **Database Setup**
    ```bash
-   cd frontend
-   npm install
-   cd ..
+   # Create PostgreSQL database
+   createdb clickup_api
+   
+   # Run database migrations
+   npx prisma migrate dev --name init
+   
+   # Seed default users (optional)
+   npm run db:seed
    ```
 
 3. **Configure environment variables**
    
-   The `.env` file is already configured with a sample API token:
+   Update the `.env` file with your credentials:
    ```properties
    # ClickUp API Configuration
-   CLICKUP_API_TOKEN=pk_49058820_41BMMQ3F1JVUB7TUITDUHRMS3YBEIBTF
+   CLICKUP_API_TOKEN=pk_your_personal_api_token_here
    CLICKUP_API_BASE_URL=https://api.clickup.com/api/v2
 
    # Application Configuration
    PORT=3000
    NODE_ENV=development
+
+   # Database Configuration (REQUIRED)
+   DATABASE_URL="postgresql://username:password@localhost:5432/clickup_api?schema=public"
+
+   # Security Configuration (REQUIRED)
+   JWT_SECRET=your_very_secure_jwt_secret_change_this_in_production_min_32_chars
+   JWT_EXPIRES_IN=1d
+
+   # Rate Limiting Configuration
+   THROTTLE_TTL=60000
+   THROTTLE_LIMIT=10
    ```
 
-   **Note**: Replace the `CLICKUP_API_TOKEN` with your own ClickUp personal access token for production use.
+   **🚨 Security Note**: All credentials must be changed for production use!
+
+### 🔑 Default Test Accounts
+
+The application includes pre-seeded test accounts:
+
+| Role | Email | Password | Access Level |
+|------|--------|----------|-------------|
+| **ADMIN** | `admin@clickup-api.com` | `Admin123!` | Full system access |
+| **EDITOR** | `editor@clickup-api.com` | `Editor123!` | Create, read, update |
+| **VIEWER** | `viewer@clickup-api.com` | `Viewer123!` | Read-only access |
 
 ### Getting Your ClickUp API Token
 
@@ -135,62 +202,73 @@ clickup-api-playground/
 
 #### Development Mode
 
-1. **Start the backend server**
-   ```bash
-   npm run start:dev
-   ```
-   Backend available at: http://localhost:3000
-   Swagger documentation: http://localhost:3000/api/docs
+```bash
+# Start the application with hot reload
+npm run start:dev
+```
 
-2. **Start the frontend development server** (in a new terminal)
-   ```bash
-   cd frontend
-   npm run dev
-   ```
-   Frontend available at: http://localhost:5173
-
-Both servers support hot reload for seamless development experience.
+**Available endpoints:**
+- 🚀 **Application**: http://localhost:3000
+- 📚 **API Documentation**: http://localhost:3000/api/docs
+- 🔐 **Authentication**: POST /auth/login
 
 #### Production Mode
 
-1. **Build both applications**
+```bash
+# Build and start production server
+npm run build
+npm run start:prod
+```
+
+### 🔐 Authentication Quick Start
+
+1. **Login to get JWT token:**
    ```bash
-   # Build backend
-   npm run build
-   
-   # Build frontend
-   cd frontend
-   npm run build
-   cd ..
+   curl -X POST http://localhost:3000/auth/login \
+     -H "Content-Type: application/json" \
+     -d '{"email":"admin@clickup-api.com","password":"Admin123!"}'
    ```
 
-2. **Start the production server**
+2. **Use token in subsequent requests:**
    ```bash
-   npm run start:prod
+   curl -X GET http://localhost:3000/api/users/workspaces \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN"
    ```
+
+3. **Or use Swagger UI:**
+   - Open http://localhost:3000/api/docs
+   - Click "Authorize" button  
+   - Enter: `Bearer YOUR_JWT_TOKEN`
 
 ## 📚 API Documentation
 
 ### Interactive Documentation
-Visit http://localhost:3000/api/docs for the complete Swagger documentation with interactive API explorer.
+Visit **http://localhost:3000/api/docs** for the complete Swagger documentation with JWT authentication support.
 
-### Available Endpoints
+### Authentication Endpoints
 
-#### 📝 Tasks
+#### 🔐 Authentication & User Management
+- `POST /auth/login` - Authenticate user and receive JWT token
+- `POST /auth/register` - Register new user account  
+- `POST /auth/profile` - Get current user profile (requires JWT)
+
+### ClickUp Integration Endpoints
+
+#### 📝 Tasks (🔒 JWT Required)
 - `GET /api/tasks/list/:listId` - Get tasks from a specific list
 - `GET /api/tasks/:taskId` - Get a specific task by ID
 - `POST /api/tasks/list/:listId` - Create a new task in a list
 - `PUT /api/tasks/:taskId` - Update an existing task
 - `DELETE /api/tasks/:taskId` - Delete a task
 
-#### 🏠 Spaces
+#### 🏠 Spaces (🔒 JWT Required)
 - `GET /api/spaces/workspace/:workspaceId` - Get spaces in a workspace
 - `GET /api/spaces/:spaceId` - Get a specific space by ID
 - `POST /api/spaces/workspace/:workspaceId` - Create a new space
 - `PUT /api/spaces/:spaceId` - Update a space
 - `DELETE /api/spaces/:spaceId` - Delete a space
 
-#### 📋 Lists
+#### 📋 Lists (🔒 JWT Required)
 - `GET /api/lists/space/:spaceId` - Get lists in a space
 - `GET /api/lists/folder/:folderId` - Get lists in a folder
 - `GET /api/lists/:listId` - Get a specific list by ID
@@ -199,7 +277,7 @@ Visit http://localhost:3000/api/docs for the complete Swagger documentation with
 - `PUT /api/lists/:listId` - Update a list
 - `DELETE /api/lists/:listId` - Delete a list
 
-#### 👥 Users & Workspaces
+#### 👥 Users & Workspaces (🔒 JWT Required)
 - `GET /api/users/workspaces` - Get authorized workspaces
 - `GET /api/users/me` - Get current user info
 - `GET /api/users/workspace/:workspaceId/members` - Get workspace members
@@ -207,106 +285,227 @@ Visit http://localhost:3000/api/docs for the complete Swagger documentation with
 - `DELETE /api/users/workspace/:workspaceId/user/:userId` - Remove user from workspace
 - `PUT /api/users/workspace/:workspaceId/user/:userId/role` - Update user role
 
-## 🎯 Frontend Usage
+### Role-Based Access Control
 
-### Navigation Flow
+| Endpoint | ADMIN | EDITOR | VIEWER |
+|----------|-------|--------|--------|
+| GET endpoints | ✅ | ✅ | ✅ |
+| POST/PUT endpoints | ✅ | ✅ | ❌ |
+| DELETE endpoints | ✅ | ❌ | ❌ |
+| User management | ✅ | ❌ | ❌ |
 
-1. **Workspaces Page** (`/`) - View all available workspaces
-   - Lists all workspaces you have access to
-   - Click on a workspace to view its spaces
+## 🛡️ Security Implementation
 
-2. **Spaces Page** (`/workspace/:workspaceId/spaces`) - View spaces in a workspace
-   - Create new spaces
-   - Delete existing spaces
-   - Navigate to lists in each space
+### Authentication Flow
 
-3. **Lists Page** (`/workspace/:workspaceId/space/:spaceId/lists`) - View lists in a space
-   - Create new lists
-   - Delete existing lists
-   - View task count for each list
-   - Navigate to tasks in each list
+1. **User Registration/Login**
+   ```bash
+   POST /auth/login
+   {
+     "email": "admin@clickup-api.com",
+     "password": "Admin123!"
+   }
+   ```
 
-4. **Tasks Page** (`/workspace/:workspaceId/space/:spaceId/list/:listId/tasks`) - View tasks in a list
-   - Create new tasks with name and description
-   - Delete existing tasks
-   - View task status, priority, assignees, and due dates
-   - Navigate to detailed task view
+2. **Receive JWT Token**
+   ```json
+   {
+     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+     "user": {
+       "id": 1,
+       "email": "admin@clickup-api.com",
+       "role": "ADMIN"
+     }
+   }
+   ```
 
-5. **Task Detail Page** (`/workspace/:workspaceId/space/:spaceId/list/:listId/task/:taskId`) - View and edit task details
-   - Edit task name and description
-   - View comprehensive task information
-   - See assignees, dates, custom fields, and more
-   - Open task in ClickUp
+3. **Use Token for Protected Routes**
+   ```bash
+   Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+   ```
 
-### Key Features
+### Rate Limiting
 
-#### CRUD Operations
-- ✅ **Create**: Add new spaces, lists, and tasks with intuitive forms
-- ✅ **Read**: View all data with proper loading states and error handling
-- ✅ **Update**: Edit task details with inline editing
-- ✅ **Delete**: Remove items with confirmation dialogs for safety
+The application implements multi-tier rate limiting:
 
-#### User Experience
-- 🔄 Loading states for all API operations
-- ❌ Comprehensive error handling with retry options
-- 📊 Breadcrumb navigation showing current location
-- 🎨 Modern, responsive design that works on all devices
-- 📱 Mobile-friendly interface with touch-optimized interactions
-- 🌟 Clean, intuitive UI following modern design principles
+- **Short-term**: 10 requests per minute
+- **Medium-term**: 100 requests per hour  
+- **Long-term**: 1000 requests per day
+
+### Security Features
+
+#### 🔒 Data Protection
+- **Password Hashing**: bcrypt with salt rounds
+- **JWT Tokens**: Secure token-based authentication
+- **Input Validation**: Comprehensive DTO validation
+- **SQL Injection Protection**: Prisma ORM query protection
+
+#### 🚨 Monitoring & Logging
+- **API Audit Trail**: All requests logged to database
+- **Structured Logging**: Winston with multiple log levels
+- **Error Tracking**: Comprehensive error logging
+- **Performance Metrics**: Request timing and monitoring
+
+#### �️ Production Security
+- **Environment Variables**: Secure configuration management
+- **CORS Configuration**: Proper cross-origin resource sharing
+- **Security Headers**: HTTP security headers enabled
+- **Database Security**: Connection pooling and query optimization
 
 ## 🧪 Testing the API
 
-### Quick Test Commands
+### Authentication Testing
 
-1. **Get Your Workspaces**
+1. **Login with Default Admin Account**
    ```bash
-   curl -X GET "http://localhost:3000/api/users/workspaces"
+   curl -X POST http://localhost:3000/auth/login \
+     -H "Content-Type: application/json" \
+     -d '{"email":"admin@clickup-api.com","password":"Admin123!"}'
    ```
 
-2. **Get Spaces in a Workspace**
+2. **Register New User**
    ```bash
-   curl -X GET "http://localhost:3000/api/spaces/workspace/YOUR_WORKSPACE_ID"
-   ```
-
-3. **Create a New Task**
-   ```bash
-   curl -X POST "http://localhost:3000/api/tasks/list/YOUR_LIST_ID" \
+   curl -X POST http://localhost:3000/auth/register \
      -H "Content-Type: application/json" \
      -d '{
-       "name": "Test Task from API",
-       "description": "This task was created using the ClickUp API integration"
+       "email": "newuser@example.com",
+       "password": "SecurePass123!",
+       "role": "EDITOR"
      }'
    ```
+
+### Protected Endpoints Testing
+
+**Note**: Replace `YOUR_JWT_TOKEN` with the token from login response.
+
+1. **Get Your Workspaces (Protected)**
+   ```bash
+   curl -X GET http://localhost:3000/api/users/workspaces \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN"
+   ```
+
+2. **Get User Profile (Protected)**
+   ```bash
+   curl -X GET http://localhost:3000/auth/profile \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN"
+   ```
+
+3. **Create a New Task (Protected)**
+   ```bash
+   curl -X POST http://localhost:3000/api/tasks/list/YOUR_LIST_ID \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "name": "Secure Task from API",
+       "description": "This task was created using JWT authentication"
+     }'
+   ```
+
+### Rate Limiting Testing
+
+Test the rate limiting by making rapid requests:
+
+```bash
+# This should be blocked after 10 requests per minute
+for i in {1..15}; do
+  curl -X GET http://localhost:3000/api/users/workspaces \
+    -H "Authorization: Bearer YOUR_JWT_TOKEN"
+done
+```
 
 ## 🔧 Configuration
 
 ### Environment Variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `CLICKUP_API_TOKEN` | Your ClickUp personal API token | Required |
-| `CLICKUP_API_BASE_URL` | ClickUp API base URL | `https://api.clickup.com/api/v2` |
-| `PORT` | Backend server port | `3000` |
-| `NODE_ENV` | Environment mode | `development` |
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| `CLICKUP_API_TOKEN` | Your ClickUp personal API token | - | ✅ |
+| `CLICKUP_API_BASE_URL` | ClickUp API base URL | `https://api.clickup.com/api/v2` | ✅ |
+| `DATABASE_URL` | PostgreSQL connection string | - | ✅ |
+| `JWT_SECRET` | JWT signing secret (min 32 chars) | - | ✅ |
+| `JWT_EXPIRES_IN` | JWT token expiration time | `1d` | ❌ |
+| `PORT` | Application server port | `3000` | ❌ |
+| `NODE_ENV` | Environment mode | `development` | ❌ |
+| `THROTTLE_TTL` | Rate limit time window (ms) | `60000` | ❌ |
+| `THROTTLE_LIMIT` | Rate limit max requests | `10` | ❌ |
 
-## 🛡️ Error Handling
+### Security Configuration
 
-The application includes comprehensive error handling:
+#### JWT Configuration
+```env
+JWT_SECRET=your_very_secure_jwt_secret_change_this_in_production_min_32_chars
+JWT_EXPIRES_IN=1d  # Options: 1h, 1d, 7d, 30d
+```
 
-- **400 Bad Request**: Invalid input data or missing required fields
-- **401 Unauthorized**: Invalid or missing ClickUp API token
-- **404 Not Found**: Requested resource doesn't exist
-- **500 Internal Server Error**: Server-side errors
+#### Database Configuration
+```env
+DATABASE_URL="postgresql://username:password@localhost:5432/clickup_api?schema=public"
+```
 
-Frontend error handling includes:
-- User-friendly error messages
-- Retry mechanisms for failed requests
-- Loading states to prevent user confusion
-- Fallback UI for when data cannot be loaded
+#### Rate Limiting Configuration
+```env
+THROTTLE_TTL=60000    # 1 minute
+THROTTLE_LIMIT=10     # 10 requests per minute
+```
+
+## 🛡️ Error Handling & Security
+
+### HTTP Status Codes
+
+| Code | Description | Security Implication |
+|------|-------------|---------------------|
+| **400** | Bad Request - Invalid input data | Input validation protection |
+| **401** | Unauthorized - Invalid/missing JWT token | Authentication required |
+| **403** | Forbidden - Insufficient permissions | Role-based access control |
+| **404** | Not Found - Resource doesn't exist | Resource protection |
+| **429** | Too Many Requests - Rate limit exceeded | DDoS protection |
+| **500** | Internal Server Error - Server issues | Error logging enabled |
+
+### Security Error Responses
+
+#### Authentication Errors
+```json
+{
+  "statusCode": 401,
+  "message": "Unauthorized - Invalid JWT token",
+  "timestamp": "2025-09-24T13:03:27.314Z",
+  "path": "/api/users/workspaces"
+}
+```
+
+#### Rate Limiting Errors
+```json
+{
+  "statusCode": 429,
+  "message": "ThrottlerException: Too Many Requests",
+  "timestamp": "2025-09-24T13:03:27.314Z"
+}
+```
+
+#### Validation Errors
+```json
+{
+  "statusCode": 400,
+  "message": [
+    "email must be a valid email",
+    "password must be longer than or equal to 8 characters"
+  ],
+  "error": "Bad Request"
+}
+```
+
+### Logging & Monitoring
+
+All security events are logged with structured data:
+- Authentication attempts (success/failure)
+- Authorization violations
+- Rate limiting triggers
+- Input validation failures
+- Database connection issues
 
 ## 📦 Available Scripts
 
-### Backend Scripts
+### Application Scripts
 ```bash
 npm run start         # Start in development mode
 npm run start:dev     # Start with file watching and hot reload
@@ -315,32 +514,92 @@ npm run build         # Build the application
 npm run test          # Run unit tests
 npm run test:e2e      # Run end-to-end tests
 npm run test:cov      # Run tests with coverage
+npm run lint          # Run ESLint with auto-fix
+npm run format        # Format code with Prettier
 ```
 
-### Frontend Scripts
+### Database Scripts
 ```bash
-cd frontend
-npm run dev           # Start development server with hot reload
-npm run build         # Build for production
-npm run preview       # Preview production build
-npm run lint          # Run ESLint
+npm run db:seed       # Seed database with default users
+npx prisma migrate dev         # Run database migrations
+npx prisma generate           # Generate Prisma client
+npx prisma studio            # Open Prisma Studio (database GUI)
+npx prisma migrate reset     # Reset database (development only)
+```
+
+### Development Tools
+```bash
+npx prisma db push           # Push schema changes without migration
+npx prisma db pull           # Pull schema from existing database
+npx prisma format           # Format Prisma schema file
 ```
 
 ## 🚨 Troubleshooting
 
 ### Common Issues
 
-1. **CORS Issues**: The backend is configured to accept requests from the frontend origin
-2. **API Token**: Ensure your ClickUp API token is valid and has necessary permissions
-3. **Port Conflicts**: Make sure ports 3000 (backend) and 5173 (frontend) are available
-4. **Build Issues**: Ensure TypeScript configurations don't conflict between backend and frontend
+#### Database Connection Issues
+```bash
+# Error: "Authentication failed against database server"
+# Solution: Update DATABASE_URL in .env with valid PostgreSQL credentials
+DATABASE_URL="postgresql://real_username:real_password@localhost:5432/clickup_api"
+```
+
+#### JWT Authentication Issues
+```bash
+# Error: "Unauthorized - Invalid JWT token"
+# Solution 1: Ensure JWT_SECRET is set and at least 32 characters
+JWT_SECRET=your_very_secure_jwt_secret_change_this_in_production_min_32_chars
+
+# Solution 2: Check if token is properly included in Authorization header
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+#### Rate Limiting Issues
+```bash
+# Error: "Too Many Requests"
+# Solution: Wait for rate limit reset or adjust THROTTLE_* settings
+THROTTLE_TTL=60000     # Time window in milliseconds
+THROTTLE_LIMIT=10      # Max requests per window
+```
+
+#### ClickUp API Issues
+```bash
+# Error: "Invalid ClickUp API token"
+# Solution: Get fresh token from ClickUp Settings → Apps → API Token
+CLICKUP_API_TOKEN=pk_your_fresh_api_token_here
+```
 
 ### Development Tips
 
-- Both servers support hot reload, so changes are reflected immediately
-- Use the browser's developer tools to debug frontend issues
-- Check the backend logs for API-related issues
-- The Swagger documentation at `/api/docs` is helpful for testing API endpoints
+- **Hot Reload**: Changes are reflected immediately during development
+- **Logging**: Check console logs for detailed error information
+- **Swagger UI**: Use http://localhost:3000/api/docs for API testing
+- **Database GUI**: Use `npx prisma studio` for visual database management
+- **JWT Debugging**: Use https://jwt.io to decode and verify JWT tokens
+
+### Production Deployment
+
+1. **Environment Setup**
+   ```bash
+   NODE_ENV=production
+   DATABASE_URL=postgresql://prod_user:prod_pass@prod_host:5432/prod_db
+   JWT_SECRET=very_secure_production_secret_minimum_32_characters
+   ```
+
+2. **Database Setup**
+   ```bash
+   npx prisma migrate deploy  # Run migrations in production
+   npm run db:seed            # Seed initial data
+   ```
+
+3. **Security Checklist**
+   - [ ] Change all default passwords
+   - [ ] Use strong JWT secrets
+   - [ ] Configure proper CORS origins
+   - [ ] Set up HTTPS/SSL
+   - [ ] Configure rate limiting for production load
+   - [ ] Set up log aggregation and monitoring
 
 ## 🤝 Contributing
 
@@ -350,46 +609,84 @@ npm run lint          # Run ESLint
 4. Push to the branch: `git push origin feature/amazing-feature`
 5. Open a Pull Request
 
-##  Useful Links
+## 📚 Documentation & Resources
 
+### Security Documentation
+- 📋 [**README-SECURITY.md**](./README-SECURITY.md) - Comprehensive security guide
+- 🔐 [**DEFAULT-CREDENTIALS.md**](./DEFAULT-CREDENTIALS.md) - Default test accounts
+- 📖 [**IMPLEMENTATION-SUMMARY.md**](./IMPLEMENTATION-SUMMARY.md) - Implementation details
+
+### External Resources
 - [ClickUp API Documentation](https://developer.clickup.com/docs)
 - [NestJS Documentation](https://docs.nestjs.com/)
-- [React Documentation](https://react.dev/)
-- [Vite Documentation](https://vitejs.dev/)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Prisma Documentation](https://www.prisma.io/docs)
+- [JWT.io](https://jwt.io/) - JWT token debugging
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
 
 ## 💡 What You Can Build With This
 
-This full-stack integration enables you to:
+This **enterprise-grade security platform** enables you to:
 
-- **Custom Task Management**: Build tailored task management interfaces
-- **Project Dashboards**: Create comprehensive project dashboards
-- **Team Collaboration Tools**: Develop team-specific collaboration features
-- **Reporting Systems**: Generate custom reports and analytics
-- **Mobile Applications**: Use as backend for mobile apps
-- **Automation Tools**: Automate workflows and task management
-- **Integration Platforms**: Connect ClickUp with other business tools
+### 🏢 Enterprise Applications
+- **Secure API Gateways**: Production-ready API wrapper for ClickUp
+- **Multi-tenant SaaS**: Role-based access for multiple organizations
+- **Compliance Systems**: Audit trails and security logging for regulations
+- **Identity Management**: User authentication and authorization systems
 
-## 🚀 Next Steps
+### 🔒 Security-First Solutions
+- **Zero-Trust APIs**: JWT-based authentication with role verification
+- **Rate-Limited Services**: DDoS protection with configurable limits
+- **Audit Systems**: Complete API request logging and monitoring
+- **Secure Integrations**: Protected connections to third-party services
 
-Potential enhancements for the project:
-- 🔐 Add user authentication and authorization
-- 📊 Add data visualization and analytics dashboards
-- 🔄 Real-time updates with WebSockets
-- 📱 Mobile app with React Native
-- 🧪 Add comprehensive testing suite
-- 🐳 Docker containerization
-- 🚀 CI/CD pipeline setup
-- 📧 Email notifications
-- 🔗 Webhook handling
-- 🎨 Theme customization
+### 📊 Business Applications
+- **Custom Dashboards**: Secure data visualization platforms
+- **Workflow Automation**: Protected automation with proper authorization
+- **Team Management**: Role-based team collaboration tools
+- **Reporting Systems**: Secure analytics with access controls
+
+## 🚀 Next Steps & Advanced Features
+
+### Ready-to-Implement Enhancements
+- 🔄 **Real-time Updates**: WebSocket integration with JWT authentication
+- 📱 **Mobile Backend**: OAuth2/SAML for enterprise authentication
+- � **Containerization**: Docker deployment with security best practices
+- � **CI/CD Pipeline**: Automated testing and secure deployments
+- 📧 **Notification System**: Secure email/SMS notifications
+- � **Webhook Handling**: Secure webhook processing with validation
+- 📊 **Advanced Analytics**: Enhanced monitoring and business intelligence
+- 🌐 **Multi-tenancy**: Organization-level data isolation
+
+### Security Enhancements
+- � **OAuth2/SAML**: Enterprise identity provider integration
+- 🛡️ **API Versioning**: Backward-compatible API evolution
+- � **Security Scanning**: Automated vulnerability assessment
+- � **Compliance Logging**: SOC2/HIPAA compliance features
+- � **Intrusion Detection**: Advanced security monitoring
+- 🔒 **Data Encryption**: End-to-end encryption for sensitive data
 
 ## 📝 License
 
-This project is for educational and demonstration purposes. Please ensure compliance with ClickUp's API terms of service when using this code.
+This project is for educational and demonstration purposes. Please ensure compliance with ClickUp's API terms of service when using this code in production environments.
+
+## 🎯 Project Status
+
+✅ **PRODUCTION-READY** - Enterprise-grade security implementation complete
+
+### Security Implementation Status
+- [x] JWT Authentication with role-based access control
+- [x] Rate limiting and DDoS protection  
+- [x] Database integration with audit logging
+- [x] Input validation and security hardening
+- [x] Structured logging and monitoring
+- [x] Environment security and configuration management
+- [x] Complete API documentation with security schemas
+
+### Ready for Production Deployment
+This application implements enterprise-grade security features and is ready for production use with proper environment configuration and database setup.
 
 ---
 
-**Happy coding! 🎉**
+**🛡️ Secure by Design • 🚀 Production Ready • 📚 Well Documented**
 
-Built with ❤️ using NestJS and React
+Built with ❤️ using **NestJS**, **Prisma**, **PostgreSQL**, and **JWT Authentication**

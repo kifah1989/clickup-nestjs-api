@@ -9,6 +9,7 @@ import {
   Query,
   HttpStatus,
   HttpException,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -16,13 +17,18 @@ import {
   ApiResponse,
   ApiParam,
   ApiQuery,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { Observable, catchError } from 'rxjs';
 import { TasksService } from './tasks.service';
 import { ClickUpTask } from '../common/interfaces/clickup-response.interface';
 import { CreateTaskDto, UpdateTaskDto } from '../common/dto';
+import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
+import { Roles, RolesGuard, UserRole } from '../../auth/roles.guard';
 
 @ApiTags('Tasks')
+@ApiBearerAuth('JWT-auth')
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('api/tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}

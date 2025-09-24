@@ -2,9 +2,13 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // Use Winston for logging
+  app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
 
   // Enable CORS for frontend integration
   app.enableCors();
@@ -21,8 +25,21 @@ async function bootstrap() {
   // Setup Swagger documentation
   const config = new DocumentBuilder()
     .setTitle('ClickUp API Integration')
-    .setDescription('REST API for interacting with ClickUp API')
+    .setDescription(
+      'REST API for interacting with ClickUp API with JWT Authentication',
+    )
     .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token',
+        in: 'header',
+      },
+      'JWT-auth',
+    )
     .addApiKey(
       {
         type: 'apiKey',
@@ -46,6 +63,8 @@ async function bootstrap() {
   
   console.log(`🚀 Application is running on: http://localhost:${port}`);
   console.log(`📚 Swagger documentation: http://localhost:${port}/api/docs`);
-  console.log(`📝 Remember to set your CLICKUP_API_TOKEN in .env file`);
+  console.log(`🔐 JWT Authentication is enabled`);
+  console.log(`📝 Remember to set your environment variables in .env file`);
 }
-bootstrap();
+
+void bootstrap();
