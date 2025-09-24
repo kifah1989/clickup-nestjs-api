@@ -5,12 +5,14 @@ A production-ready, secure REST API wrapper for the ClickUp API built with NestJ
 ## 🚀 Features
 
 ### Core API Integration
+
 - 🔌 **Complete ClickUp API Integration**: Full CRUD operations for Tasks, Spaces, Lists, and Users
 - 📝 **Interactive Documentation**: Auto-generated Swagger/OpenAPI documentation with JWT authentication
 - 🛡️ **Input Validation**: Comprehensive request validation using DTOs and class-validator
 - 🎯 **TypeScript**: Fully typed codebase with strict TypeScript configuration
 
 ### 🔐 Security & Authentication
+
 - 🔑 **JWT Authentication**: Secure token-based authentication with Passport.js
 - 👥 **Role-Based Access Control**: Admin, Editor, and Viewer roles with proper authorization
 - 🛡️ **Password Security**: bcrypt-based password hashing with configurable rounds
@@ -19,6 +21,7 @@ A production-ready, secure REST API wrapper for the ClickUp API built with NestJ
 - 🚪 **Global Authentication**: All ClickUp routes protected by default with public route exceptions
 
 ### 💾 Database & Monitoring
+
 - 🗄️ **Prisma ORM**: Type-safe database operations with PostgreSQL
 - 📊 **API Usage Logging**: Comprehensive API call tracking per user
 - 📝 **Structured Logging**: Winston-based logging with sensitive data redaction
@@ -153,15 +156,16 @@ curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
 
 ### User Roles & Permissions
 
-| Role | Permissions |
-|------|-------------|
-| **ADMIN** | Full access to all endpoints, user management, system administration |
-| **EDITOR** | Create, read, update, and delete ClickUp resources |
-| **VIEWER** | Read-only access to ClickUp resources |
+| Role       | Permissions                                                          |
+| ---------- | -------------------------------------------------------------------- |
+| **ADMIN**  | Full access to all endpoints, user management, system administration |
+| **EDITOR** | Create, read, update, and delete ClickUp resources                   |
+| **VIEWER** | Read-only access to ClickUp resources                                |
 
 ## 📚 API Endpoints
 
 ### 🔓 Public Endpoints (No Authentication Required)
+
 - `GET /` - Application information
 - `GET /health` - Health check
 - `POST /auth/register` - User registration
@@ -171,9 +175,11 @@ curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
 ### 🔒 Protected Endpoints (JWT Required)
 
 #### Authentication
+
 - `POST /auth/profile` - Get current user profile
 
 #### ClickUp Integration
+
 - **Tasks**: `/api/tasks/*` - Complete task management
   - `GET /api/tasks/list/:listId` - Get tasks from a specific list
   - `GET /api/tasks/:taskId` - Get a specific task by ID
@@ -182,7 +188,7 @@ curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   - `DELETE /api/tasks/:taskId` - Delete a task (EDITOR+ required)
 
 - **Spaces**: `/api/spaces/*` - Space operations
-- **Lists**: `/api/lists/*` - List management  
+- **Lists**: `/api/lists/*` - List management
 - **Users**: `/api/users/*` - User information
 
 ## 🛠️ Development
@@ -287,6 +293,7 @@ model ApiLog {
 ## 🔒 Security Features
 
 ### Authentication & Authorization
+
 - **JWT Token-Based Authentication**: Secure, stateless authentication
 - **Role-Based Access Control (RBAC)**: Fine-grained permissions
 - **Password Security**: bcrypt hashing with configurable salt rounds
@@ -294,6 +301,7 @@ model ApiLog {
 - **Global Authentication**: All ClickUp routes protected by default
 
 ### Rate Limiting & DDoS Protection
+
 ```typescript
 // Multiple rate limiting tiers
 {
@@ -303,7 +311,7 @@ model ApiLog {
 },
 {
   name: 'medium',
-  ttl: 600000,   // 10 minutes  
+  ttl: 600000,   // 10 minutes
   limit: 100,    // 100 requests per 10 minutes
 },
 {
@@ -314,12 +322,14 @@ model ApiLog {
 ```
 
 ### Data Protection & Privacy
+
 - **Sensitive Data Redaction**: Automatic redaction of tokens/passwords in logs
 - **Environment Variable Validation**: Required variables checked at startup
 - **CORS Configuration**: Proper cross-origin resource sharing setup
 - **Input Validation**: Comprehensive request validation with class-validator
 
 ### Monitoring & Logging
+
 - **Structured Logging**: JSON-formatted logs with Winston
 - **API Usage Tracking**: Per-user API call logging to database
 - **Error Monitoring**: Comprehensive error logging with stack traces
@@ -379,6 +389,7 @@ CMD ["npm", "run", "start:prod"]
 ### API Usage Tracking
 
 Every authenticated API call is logged with:
+
 - User ID and email
 - Endpoint accessed
 - HTTP method
@@ -479,9 +490,7 @@ async sensitiveOperation() {
 // In app.module.ts
 export class AppModule implements NestMiddleware {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(ApiLoggingMiddleware)
-      .forRoutes('*'); // Apply to all routes
+    consumer.apply(ApiLoggingMiddleware).forRoutes('*'); // Apply to all routes
   }
 }
 ```
@@ -532,4 +541,4 @@ tail -f logs/combined.log
 
 **Built with ❤️ for production environments**
 
-*Security-first • Scalable • Production-ready*
+_Security-first • Scalable • Production-ready_

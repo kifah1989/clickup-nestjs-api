@@ -9,6 +9,7 @@ This is a **complete enterprise-grade security-hardened NestJS application** tha
 ## 🔐 SECURITY IMPLEMENTATION COMPLETE
 
 ### Authentication & Authorization ✅
+
 - [x] JWT Authentication with @nestjs/jwt and @nestjs/passport
 - [x] Role-Based Access Control (RBAC): ADMIN, EDITOR, VIEWER
 - [x] bcrypt password hashing with proper salt rounds
@@ -17,6 +18,7 @@ This is a **complete enterprise-grade security-hardened NestJS application** tha
 - [x] Global authentication guards with public route exceptions
 
 ### Database Integration ✅
+
 - [x] PostgreSQL database with Prisma ORM v6.16.2
 - [x] User management with complete lifecycle operations
 - [x] API audit logging with comprehensive request tracking
@@ -25,6 +27,7 @@ This is a **complete enterprise-grade security-hardened NestJS application** tha
 - [x] Type-safe database operations with Prisma Client
 
 ### Security Hardening ✅
+
 - [x] Multi-tier rate limiting (10/min, 100/hour, 1000/day)
 - [x] Input validation with comprehensive DTOs
 - [x] Environment security with @nestjs/config
@@ -33,6 +36,7 @@ This is a **complete enterprise-grade security-hardened NestJS application** tha
 - [x] SQL injection protection via Prisma ORM
 
 ### Monitoring & Logging ✅
+
 - [x] Winston structured logging with multiple levels
 - [x] API request/response logging middleware
 - [x] Database operation logging and error tracking
@@ -41,6 +45,7 @@ This is a **complete enterprise-grade security-hardened NestJS application** tha
 - [x] Security event logging (auth failures, rate limits)
 
 ### API Documentation ✅
+
 - [x] Swagger/OpenAPI documentation with security schemas
 - [x] JWT bearer token authentication in Swagger UI
 - [x] Comprehensive endpoint documentation
@@ -51,29 +56,33 @@ This is a **complete enterprise-grade security-hardened NestJS application** tha
 ## 🏗️ ARCHITECTURE OVERVIEW
 
 ### Core Modules
+
 - **AuthModule**: JWT authentication and user registration
-- **UsersModule**: User management and profile operations  
+- **UsersModule**: User management and profile operations
 - **PrismaModule**: Database integration and ORM services
 - **ClickUpModule**: Secure ClickUp API integration wrapper
   - TasksModule, SpacesModule, ListsModule, UsersModule (ClickUp)
 
 ### Security Layers
+
 - **Guards**: JwtAuthGuard, RolesGuard for endpoint protection
 - **Middleware**: ApiLoggingMiddleware for request auditing
 - **Validation**: class-validator DTOs for input sanitization
 - **Rate Limiting**: ThrottlerModule for DDoS protection
 
 ### Database Schema
+
 - **User**: Authentication and authorization data
 - **ApiLog**: Comprehensive request/response audit trail
 
 ## 🚀 DEVELOPMENT GUIDELINES
 
 ### Project Structure
+
 ```
 src/
 ├── auth/           # 🔐 JWT authentication module
-├── users/          # 👥 User management module  
+├── users/          # 👥 User management module
 ├── prisma/         # 💾 Database integration module
 ├── clickup/        # 🎯 ClickUp API integration modules
 ├── common/         # 🔧 Shared utilities and middleware
@@ -81,6 +90,7 @@ src/
 ```
 
 ### Key Files
+
 - `src/auth/auth.service.ts` - JWT authentication logic
 - `src/users/users.service.ts` - User management with bcrypt
 - `src/prisma/prisma.service.ts` - Database connection management
@@ -88,15 +98,17 @@ src/
 - `prisma/seed.ts` - Default user seeding script
 
 ### Default Test Credentials
-| Role | Email | Password | Access |
-|------|--------|----------|--------|
-| ADMIN | admin@clickup-api.com | Admin123! | Full access |
+
+| Role   | Email                  | Password   | Access             |
+| ------ | ---------------------- | ---------- | ------------------ |
+| ADMIN  | admin@clickup-api.com  | Admin123!  | Full access        |
 | EDITOR | editor@clickup-api.com | Editor123! | Create/Read/Update |
-| VIEWER | viewer@clickup-api.com | Viewer123! | Read-only |
+| VIEWER | viewer@clickup-api.com | Viewer123! | Read-only          |
 
 ## 🛠️ DEVELOPMENT COMMANDS
 
 ### Application Commands
+
 ```bash
 npm run start:dev      # Start with hot reload
 npm run build          # Build for production
@@ -104,6 +116,7 @@ npm run start:prod     # Start production server
 ```
 
 ### Database Commands
+
 ```bash
 npm run db:seed        # Seed default users
 npx prisma migrate dev # Run database migrations
@@ -111,6 +124,7 @@ npx prisma studio      # Open database GUI
 ```
 
 ### Security Testing
+
 ```bash
 # Login and get JWT token
 curl -X POST http://localhost:3000/auth/login \
@@ -125,11 +139,12 @@ curl -X GET http://localhost:3000/api/users/workspaces \
 ## 🔧 CONFIGURATION
 
 ### Required Environment Variables
+
 ```env
 # Database (REQUIRED)
 DATABASE_URL="postgresql://user:pass@localhost:5432/clickup_api"
 
-# Security (REQUIRED)  
+# Security (REQUIRED)
 JWT_SECRET=your_very_secure_jwt_secret_min_32_chars
 JWT_EXPIRES_IN=1d
 
@@ -144,12 +159,14 @@ THROTTLE_LIMIT=10
 ## 📚 DOCUMENTATION
 
 ### Available Documentation
+
 - `README.md` - Complete project documentation
 - `README-SECURITY.md` - Security implementation guide
 - `DEFAULT-CREDENTIALS.md` - Test account information
 - `IMPLEMENTATION-SUMMARY.md` - Technical implementation details
 
 ### API Documentation
+
 - **Swagger UI**: http://localhost:3000/api/docs
 - **Authentication**: JWT Bearer token required for all ClickUp endpoints
 - **Rate Limiting**: 10 requests/minute, 100/hour, 1000/day
@@ -158,6 +175,7 @@ THROTTLE_LIMIT=10
 ## 🎯 CURRENT PROJECT STATE
 
 ### ✅ COMPLETED FEATURES
+
 - Complete enterprise security implementation
 - Production-ready authentication and authorization
 - Comprehensive database integration with audit logging
@@ -167,7 +185,9 @@ THROTTLE_LIMIT=10
 - Default user seeding for immediate testing
 
 ### 🏢 PRODUCTION READY
+
 This application is **production-ready** with:
+
 - Enterprise-grade security hardening
 - Scalable architecture with proper separation of concerns
 - Comprehensive error handling and logging
@@ -175,6 +195,7 @@ This application is **production-ready** with:
 - Complete documentation and testing capabilities
 
 ### 🚀 DEPLOYMENT STATUS
+
 - **Development**: Fully functional with hot reload
 - **Testing**: Complete with default seeded accounts
 - **Production**: Ready with proper environment configuration
@@ -183,6 +204,7 @@ This application is **production-ready** with:
 ## 💡 DEVELOPMENT BEST PRACTICES
 
 When working with this codebase:
+
 1. **Security First**: All new endpoints should use JWT authentication
 2. **Role-Based Access**: Implement proper role checks for sensitive operations
 3. **Input Validation**: Use DTOs with class-validator for all inputs

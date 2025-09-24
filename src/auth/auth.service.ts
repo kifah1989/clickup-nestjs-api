@@ -24,22 +24,28 @@ export class AuthService {
     return null;
   }
 
-  async login(user: User): Promise<{ access_token: string; user: Omit<User, 'passwordHash'> }> {
+  async login(
+    user: User,
+  ): Promise<{ access_token: string; user: Omit<User, 'passwordHash'> }> {
     const payload: JwtPayload = {
       sub: user.id,
       email: user.email,
       role: user.role,
     };
-
-    const { passwordHash, ...userWithoutPassword } = user;
+    const { passwordHash: _passwordHash, ...userWithoutPassword } = user;
+    void _passwordHash;
 
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: await this.jwtService.signAsync(payload),
       user: userWithoutPassword,
     };
   }
 
-  async register(email: string, password: string, role?: UserRole): Promise<User> {
+  async register(
+    email: string,
+    password: string,
+    role?: UserRole,
+  ): Promise<User> {
     const existingUser = await this.usersService.findByEmail(email);
     if (existingUser) {
       throw new UnauthorizedException('Email already exists');

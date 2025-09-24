@@ -1,4 +1,4 @@
-import { Module, MiddlewareConsumer } from '@nestjs/common';
+import { Module, MiddlewareConsumer, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
@@ -120,4 +120,8 @@ import { ApiLoggingMiddleware } from './common/middleware/api-logging.middleware
     },
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(ApiLoggingMiddleware).forRoutes('*');
+  }
+}

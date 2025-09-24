@@ -1,14 +1,14 @@
 import {
+  Body,
   Controller,
+  Delete,
   Get,
+  HttpException,
+  HttpStatus,
+  Param,
   Post,
   Put,
-  Delete,
-  Body,
-  Param,
   Query,
-  HttpStatus,
-  HttpException,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -19,12 +19,12 @@ import {
   ApiQuery,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { Observable, catchError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TasksService } from './tasks.service';
 import { ClickUpTask } from '../common/interfaces/clickup-response.interface';
 import { CreateTaskDto, UpdateTaskDto } from '../common/dto';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
-import { Roles, RolesGuard, UserRole } from '../../auth/roles.guard';
+import { RolesGuard } from '../../auth/roles.guard';
 
 @ApiTags('Tasks')
 @ApiBearerAuth('JWT-auth')
@@ -38,7 +38,11 @@ export class TasksController {
   @ApiParam({ name: 'listId', description: 'ClickUp List ID' })
   @ApiQuery({ name: 'archived', required: false, type: Boolean })
   @ApiQuery({ name: 'page', required: false, type: Number })
-  @ApiQuery({ name: 'order_by', required: false, enum: ['created', 'updated', 'due_date'] })
+  @ApiQuery({
+    name: 'order_by',
+    required: false,
+    enum: ['created', 'updated', 'due_date'],
+  })
   @ApiQuery({ name: 'reverse', required: false, type: Boolean })
   @ApiQuery({ name: 'subtasks', required: false, type: Boolean })
   @ApiQuery({ name: 'include_closed', required: false, type: Boolean })
@@ -63,14 +67,7 @@ export class TasksController {
       include_closed,
     };
 
-    return this.tasksService.getTasksByListId(listId, params).pipe(
-      catchError((error) => {
-        throw new HttpException(
-          error.response?.data?.message || 'Failed to fetch tasks',
-          error.response?.status || HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }),
-    );
+    return this.tasksService.getTasksByListId(listId, params);
   }
 
   @Get(':taskId')
@@ -94,14 +91,7 @@ export class TasksController {
       include_subtasks,
     };
 
-    return this.tasksService.getTaskById(taskId, params).pipe(
-      catchError((error) => {
-        throw new HttpException(
-          error.response?.data?.message || 'Failed to fetch task',
-          error.response?.status || HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }),
-    );
+    return this.tasksService.getTaskById(taskId, params);
   }
 
   @Post('list/:listId')
@@ -118,6 +108,10 @@ export class TasksController {
     @Query('custom_task_ids') custom_task_ids?: boolean,
     @Query('team_id') team_id?: string,
   ): { message: string } {
+    void listId;
+    void createTaskDto;
+    void custom_task_ids;
+    void team_id;
     throw new HttpException(
       'This feature is currently disabled',
       HttpStatus.SERVICE_UNAVAILABLE,
@@ -139,6 +133,10 @@ export class TasksController {
     @Query('custom_task_ids') custom_task_ids?: boolean,
     @Query('team_id') team_id?: string,
   ): { message: string } {
+    void taskId;
+    void updateTaskDto;
+    void custom_task_ids;
+    void team_id;
     throw new HttpException(
       'This feature is currently disabled',
       HttpStatus.SERVICE_UNAVAILABLE,
@@ -158,6 +156,9 @@ export class TasksController {
     @Query('custom_task_ids') custom_task_ids?: boolean,
     @Query('team_id') team_id?: string,
   ): { message: string } {
+    void taskId;
+    void custom_task_ids;
+    void team_id;
     throw new HttpException(
       'This feature is currently disabled',
       HttpStatus.SERVICE_UNAVAILABLE,

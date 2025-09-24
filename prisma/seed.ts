@@ -18,7 +18,7 @@ async function main() {
 
   // Create default admin user
   const hashedPassword = await bcrypt.hash('Admin123!', 10);
-  
+
   const adminUser = await prisma.user.create({
     data: {
       email: 'admin@clickup-api.com',
@@ -35,7 +35,7 @@ async function main() {
 
   // Create sample editor user
   const editorPassword = await bcrypt.hash('Editor123!', 10);
-  
+
   const editorUser = await prisma.user.create({
     data: {
       email: 'editor@clickup-api.com',
@@ -52,7 +52,7 @@ async function main() {
 
   // Create sample viewer user
   const viewerPassword = await bcrypt.hash('Viewer123!', 10);
-  
+
   const viewerUser = await prisma.user.create({
     data: {
       email: 'viewer@clickup-api.com',

@@ -7,10 +7,7 @@ import { ClickUpSpace } from '../common/interfaces/clickup-response.interface';
 
 @Injectable()
 export class SpacesService extends ClickUpBaseService {
-  constructor(
-    configService: ConfigService,
-    httpService: HttpService,
-  ) {
+  constructor(configService: ConfigService, httpService: HttpService) {
     super(configService, httpService);
   }
 
@@ -24,7 +21,7 @@ export class SpacesService extends ClickUpBaseService {
     },
   ): Observable<{ spaces: ClickUpSpace[] }> {
     const queryParams = new URLSearchParams();
-    
+
     if (params?.archived !== undefined) {
       queryParams.append('archived', params.archived.toString());
     }

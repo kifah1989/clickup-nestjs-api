@@ -1,10 +1,10 @@
 import {
+  Body,
   Controller,
   Post,
-  Body,
-  UseGuards,
-  Request,
+  Req,
   UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -17,6 +17,14 @@ import { LoginDto, RegisterDto, UserRole } from './dto/auth.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { SkipThrottle } from '@nestjs/throttler';
 import { Public } from './decorators/public.decorator';
+import { User } from '@prisma/client';
+import type { Request } from 'express';
+
+type SanitizedUser = Omit<User, 'passwordHash'>;
+
+type RequestWithUser = Request & {
+  user: User;
+};
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -29,7 +37,9 @@ export class AuthController {
   @ApiOperation({ summary: 'User login' })
   @ApiResponse({ status: 200, description: 'Login successful' })
   @ApiResponse({ status: 401, description: 'Invalid credentials' })
-  async login(@Body() loginDto: LoginDto) {
+  async login(
+    @Body() loginDto: LoginDto,
+  ): Promise<{ access_token: string; user: SanitizedUser }> {
     const user = await this.authService.validateUser(
       loginDto.email,
       loginDto.password,
@@ -47,14 +57,15 @@ export class AuthController {
   @ApiOperation({ summary: 'User registration' })
   @ApiResponse({ status: 201, description: 'User created successfully' })
   @ApiResponse({ status: 400, description: 'Email already exists' })
-  async register(@Body() registerDto: RegisterDto) {
+  async register(@Body() registerDto: RegisterDto): Promise<SanitizedUser> {
     const user = await this.authService.register(
       registerDto.email,
       registerDto.password,
       registerDto.role || UserRole.VIEWER,
     );
 
-    const { passwordHash, ...result } = user;
+    const { passwordHash: _passwordHash, ...result } = user;
+    void _passwordHash;
     return result;
   }
 
@@ -63,8 +74,9 @@ export class AuthController {
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Get user profile' })
   @ApiResponse({ status: 200, description: 'Profile retrieved successfully' })
-  getProfile(@Request() req: any) {
-    const { passwordHash, ...user } = req.user;
+  getProfile(@Req() req: RequestWithUser): SanitizedUser {
+    const { passwordHash: _passwordHash, ...user } = req.user;
+    void _passwordHash;
     return user;
   }
 }

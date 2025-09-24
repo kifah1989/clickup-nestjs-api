@@ -3,14 +3,14 @@ import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { Observable } from 'rxjs';
 import { ClickUpBaseService } from '../common/services/clickup-base.service';
-import { ClickUpUser, ClickUpWorkspace } from '../common/interfaces/clickup-response.interface';
+import {
+  ClickUpUser,
+  ClickUpWorkspace,
+} from '../common/interfaces/clickup-response.interface';
 
 @Injectable()
 export class UsersService extends ClickUpBaseService {
-  constructor(
-    configService: ConfigService,
-    httpService: HttpService,
-  ) {
+  constructor(configService: ConfigService, httpService: HttpService) {
     super(configService, httpService);
   }
 
@@ -33,7 +33,9 @@ export class UsersService extends ClickUpBaseService {
   /**
    * Get workspace members
    */
-  getWorkspaceMembers(workspaceId: string): Observable<{ members: ClickUpUser[] }> {
+  getWorkspaceMembers(
+    workspaceId: string,
+  ): Observable<{ members: ClickUpUser[] }> {
     const endpoint = `/team/${workspaceId}`;
     return this.get<{ members: ClickUpUser[] }>(endpoint);
   }

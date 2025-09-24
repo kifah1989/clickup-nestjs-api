@@ -1,23 +1,19 @@
 import {
+  Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   Put,
-  Delete,
-  Body,
-  Param,
-  HttpStatus,
-  HttpException,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiParam,
-} from '@nestjs/swagger';
-import { Observable, catchError } from 'rxjs';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
+import { Observable } from 'rxjs';
 import { UsersService } from './users.service';
-import { ClickUpUser, ClickUpWorkspace } from '../common/interfaces/clickup-response.interface';
+import {
+  ClickUpUser,
+  ClickUpWorkspace,
+} from '../common/interfaces/clickup-response.interface';
 
 @ApiTags('Users & Workspaces')
 @Controller('api/users')
@@ -26,17 +22,13 @@ export class UsersController {
 
   @Get('workspaces')
   @ApiOperation({ summary: 'Get authorized workspaces' })
-  @ApiResponse({ status: 200, description: 'Workspaces retrieved successfully' })
+  @ApiResponse({
+    status: 200,
+    description: 'Workspaces retrieved successfully',
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   getAuthorizedWorkspaces(): Observable<{ teams: ClickUpWorkspace[] }> {
-    return this.usersService.getAuthorizedWorkspaces().pipe(
-      catchError((error) => {
-        throw new HttpException(
-          error.response?.data?.message || 'Failed to fetch workspaces',
-          error.response?.status || HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }),
-    );
+    return this.usersService.getAuthorizedWorkspaces();
   }
 
   @Get('me')
@@ -44,14 +36,7 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'User info retrieved successfully' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   getCurrentUser(): Observable<{ user: ClickUpUser }> {
-    return this.usersService.getCurrentUser().pipe(
-      catchError((error) => {
-        throw new HttpException(
-          error.response?.data?.message || 'Failed to fetch user info',
-          error.response?.status || HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }),
-    );
+    return this.usersService.getCurrentUser();
   }
 
   @Get('workspace/:workspaceId/members')
@@ -62,14 +47,7 @@ export class UsersController {
   getWorkspaceMembers(
     @Param('workspaceId') workspaceId: string,
   ): Observable<{ members: ClickUpUser[] }> {
-    return this.usersService.getWorkspaceMembers(workspaceId).pipe(
-      catchError((error) => {
-        throw new HttpException(
-          error.response?.data?.message || 'Failed to fetch workspace members',
-          error.response?.status || HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }),
-    );
+    return this.usersService.getWorkspaceMembers(workspaceId);
   }
 
   @Post('workspace/:workspaceId/invite')
@@ -80,16 +58,10 @@ export class UsersController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   inviteUserToWorkspace(
     @Param('workspaceId') workspaceId: string,
-    @Body() userData: { email: string; admin?: boolean; custom_role_id?: number },
+    @Body()
+    userData: { email: string; admin?: boolean; custom_role_id?: number },
   ): Observable<{ user: ClickUpUser }> {
-    return this.usersService.inviteUserToWorkspace(workspaceId, userData).pipe(
-      catchError((error) => {
-        throw new HttpException(
-          error.response?.data?.message || 'Failed to invite user',
-          error.response?.status || HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }),
-    );
+    return this.usersService.inviteUserToWorkspace(workspaceId, userData);
   }
 
   @Delete('workspace/:workspaceId/user/:userId')
@@ -103,14 +75,7 @@ export class UsersController {
     @Param('workspaceId') workspaceId: string,
     @Param('userId') userId: string,
   ): Observable<any> {
-    return this.usersService.removeUserFromWorkspace(workspaceId, userId).pipe(
-      catchError((error) => {
-        throw new HttpException(
-          error.response?.data?.message || 'Failed to remove user',
-          error.response?.status || HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }),
-    );
+    return this.usersService.removeUserFromWorkspace(workspaceId, userId);
   }
 
   @Put('workspace/:workspaceId/user/:userId/role')
@@ -126,13 +91,6 @@ export class UsersController {
     @Param('userId') userId: string,
     @Body() roleData: { admin?: boolean; custom_role_id?: number },
   ): Observable<{ user: ClickUpUser }> {
-    return this.usersService.updateUserRole(workspaceId, userId, roleData).pipe(
-      catchError((error) => {
-        throw new HttpException(
-          error.response?.data?.message || 'Failed to update user role',
-          error.response?.status || HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }),
-    );
+    return this.usersService.updateUserRole(workspaceId, userId, roleData);
   }
 }

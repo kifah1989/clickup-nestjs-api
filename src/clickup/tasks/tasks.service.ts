@@ -8,10 +8,7 @@ import { CreateTaskDto, UpdateTaskDto } from '../common/dto';
 
 @Injectable()
 export class TasksService extends ClickUpBaseService {
-  constructor(
-    configService: ConfigService,
-    httpService: HttpService,
-  ) {
+  constructor(configService: ConfigService, httpService: HttpService) {
     super(configService, httpService);
   }
 
@@ -40,7 +37,7 @@ export class TasksService extends ClickUpBaseService {
     },
   ): Observable<{ tasks: ClickUpTask[] }> {
     const queryParams = new URLSearchParams();
-    
+
     if (params) {
       Object.entries(params).forEach(([key, value]) => {
         if (value !== undefined) {
@@ -69,7 +66,7 @@ export class TasksService extends ClickUpBaseService {
     },
   ): Observable<ClickUpTask> {
     const queryParams = new URLSearchParams();
-    
+
     if (params) {
       Object.entries(params).forEach(([key, value]) => {
         if (value !== undefined) {
@@ -94,7 +91,7 @@ export class TasksService extends ClickUpBaseService {
     },
   ): Observable<ClickUpTask> {
     const queryParams = new URLSearchParams();
-    
+
     if (params) {
       Object.entries(params).forEach(([key, value]) => {
         if (value !== undefined) {
@@ -119,7 +116,7 @@ export class TasksService extends ClickUpBaseService {
     },
   ): Observable<ClickUpTask> {
     const queryParams = new URLSearchParams();
-    
+
     if (params) {
       Object.entries(params).forEach(([key, value]) => {
         if (value !== undefined) {
@@ -143,7 +140,7 @@ export class TasksService extends ClickUpBaseService {
     },
   ): Observable<any> {
     const queryParams = new URLSearchParams();
-    
+
     if (params) {
       Object.entries(params).forEach(([key, value]) => {
         if (value !== undefined) {

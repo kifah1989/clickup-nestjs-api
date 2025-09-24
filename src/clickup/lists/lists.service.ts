@@ -7,10 +7,7 @@ import { ClickUpList } from '../common/interfaces/clickup-response.interface';
 
 @Injectable()
 export class ListsService extends ClickUpBaseService {
-  constructor(
-    configService: ConfigService,
-    httpService: HttpService,
-  ) {
+  constructor(configService: ConfigService, httpService: HttpService) {
     super(configService, httpService);
   }
 
@@ -24,7 +21,7 @@ export class ListsService extends ClickUpBaseService {
     },
   ): Observable<{ lists: ClickUpList[] }> {
     const queryParams = new URLSearchParams();
-    
+
     if (params?.archived !== undefined) {
       queryParams.append('archived', params.archived.toString());
     }
@@ -43,7 +40,7 @@ export class ListsService extends ClickUpBaseService {
     },
   ): Observable<{ lists: ClickUpList[] }> {
     const queryParams = new URLSearchParams();
-    
+
     if (params?.archived !== undefined) {
       queryParams.append('archived', params.archived.toString());
     }

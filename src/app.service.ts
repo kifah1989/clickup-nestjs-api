@@ -38,13 +38,16 @@ export class AppService {
           getWorkspaceMembers: 'GET /api/users/workspace/:workspaceId/members',
           inviteUser: 'POST /api/users/workspace/:workspaceId/invite',
           removeUser: 'DELETE /api/users/workspace/:workspaceId/user/:userId',
-          updateUserRole: 'PUT /api/users/workspace/:workspaceId/user/:userId/role',
+          updateUserRole:
+            'PUT /api/users/workspace/:workspaceId/user/:userId/role',
         },
       },
       setup: {
-        step1: 'Set your ClickUp API token in .env file (CLICKUP_API_TOKEN=pk_...)',
+        step1:
+          'Set your ClickUp API token in .env file (CLICKUP_API_TOKEN=pk_...)',
         step2: 'Visit /api/docs for interactive API documentation',
-        step3: 'Test the endpoints using your ClickUp workspace, space, and list IDs',
+        step3:
+          'Test the endpoints using your ClickUp workspace, space, and list IDs',
       },
     };
   }

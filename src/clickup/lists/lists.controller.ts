@@ -1,14 +1,14 @@
 import {
+  Body,
   Controller,
+  Delete,
   Get,
+  HttpException,
+  HttpStatus,
+  Param,
   Post,
   Put,
-  Delete,
-  Body,
-  Param,
   Query,
-  HttpStatus,
-  HttpException,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -17,7 +17,7 @@ import {
   ApiParam,
   ApiQuery,
 } from '@nestjs/swagger';
-import { Observable, catchError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ListsService } from './lists.service';
 import { ClickUpList } from '../common/interfaces/clickup-response.interface';
 
@@ -36,14 +36,7 @@ export class ListsController {
     @Param('spaceId') spaceId: string,
     @Query('archived') archived?: boolean,
   ): Observable<{ lists: ClickUpList[] }> {
-    return this.listsService.getListsBySpaceId(spaceId, { archived }).pipe(
-      catchError((error) => {
-        throw new HttpException(
-          error.response?.data?.message || 'Failed to fetch lists',
-          error.response?.status || HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }),
-    );
+    return this.listsService.getListsBySpaceId(spaceId, { archived });
   }
 
   @Get('folder/:folderId')
@@ -56,14 +49,7 @@ export class ListsController {
     @Param('folderId') folderId: string,
     @Query('archived') archived?: boolean,
   ): Observable<{ lists: ClickUpList[] }> {
-    return this.listsService.getListsByFolderId(folderId, { archived }).pipe(
-      catchError((error) => {
-        throw new HttpException(
-          error.response?.data?.message || 'Failed to fetch lists',
-          error.response?.status || HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }),
-    );
+    return this.listsService.getListsByFolderId(folderId, { archived });
   }
 
   @Get(':listId')
@@ -73,14 +59,7 @@ export class ListsController {
   @ApiResponse({ status: 404, description: 'List not found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   getListById(@Param('listId') listId: string): Observable<ClickUpList> {
-    return this.listsService.getListById(listId).pipe(
-      catchError((error) => {
-        throw new HttpException(
-          error.response?.data?.message || 'Failed to fetch list',
-          error.response?.status || HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }),
-    );
+    return this.listsService.getListById(listId);
   }
 
   @Post('folder/:folderId')
@@ -93,6 +72,8 @@ export class ListsController {
     @Param('folderId') folderId: string,
     @Body() listData: any,
   ): { message: string } {
+    void folderId;
+    void listData;
     throw new HttpException(
       'This feature is currently disabled',
       HttpStatus.SERVICE_UNAVAILABLE,
@@ -109,6 +90,8 @@ export class ListsController {
     @Param('spaceId') spaceId: string,
     @Body() listData: any,
   ): { message: string } {
+    void spaceId;
+    void listData;
     throw new HttpException(
       'This feature is currently disabled',
       HttpStatus.SERVICE_UNAVAILABLE,
@@ -126,6 +109,8 @@ export class ListsController {
     @Param('listId') listId: string,
     @Body() listData: any,
   ): { message: string } {
+    void listId;
+    void listData;
     throw new HttpException(
       'This feature is currently disabled',
       HttpStatus.SERVICE_UNAVAILABLE,
@@ -139,6 +124,7 @@ export class ListsController {
   @ApiResponse({ status: 404, description: 'List not found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   deleteList(@Param('listId') listId: string): { message: string } {
+    void listId;
     throw new HttpException(
       'This feature is currently disabled',
       HttpStatus.SERVICE_UNAVAILABLE,

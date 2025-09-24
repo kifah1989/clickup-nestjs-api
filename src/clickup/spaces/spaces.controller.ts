@@ -1,14 +1,14 @@
 import {
+  Body,
   Controller,
+  Delete,
   Get,
+  HttpException,
+  HttpStatus,
+  Param,
   Post,
   Put,
-  Delete,
-  Body,
-  Param,
   Query,
-  HttpStatus,
-  HttpException,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -17,7 +17,7 @@ import {
   ApiParam,
   ApiQuery,
 } from '@nestjs/swagger';
-import { Observable, catchError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { SpacesService } from './spaces.service';
 import { ClickUpSpace } from '../common/interfaces/clickup-response.interface';
 
@@ -36,14 +36,7 @@ export class SpacesController {
     @Param('workspaceId') workspaceId: string,
     @Query('archived') archived?: boolean,
   ): Observable<{ spaces: ClickUpSpace[] }> {
-    return this.spacesService.getSpaces(workspaceId, { archived }).pipe(
-      catchError((error) => {
-        throw new HttpException(
-          error.response?.data?.message || 'Failed to fetch spaces',
-          error.response?.status || HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }),
-    );
+    return this.spacesService.getSpaces(workspaceId, { archived });
   }
 
   @Get(':spaceId')
@@ -53,14 +46,7 @@ export class SpacesController {
   @ApiResponse({ status: 404, description: 'Space not found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   getSpaceById(@Param('spaceId') spaceId: string): Observable<ClickUpSpace> {
-    return this.spacesService.getSpaceById(spaceId).pipe(
-      catchError((error) => {
-        throw new HttpException(
-          error.response?.data?.message || 'Failed to fetch space',
-          error.response?.status || HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }),
-    );
+    return this.spacesService.getSpaceById(spaceId);
   }
 
   @Post('workspace/:workspaceId')
@@ -71,8 +57,11 @@ export class SpacesController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   createSpace(
     @Param('workspaceId') workspaceId: string,
-    @Body() spaceData: { name: string; multiple_assignees?: boolean; features?: any },
+    @Body()
+    spaceData: { name: string; multiple_assignees?: boolean; features?: any },
   ): { message: string } {
+    void workspaceId;
+    void spaceData;
     throw new HttpException(
       'This feature is currently disabled',
       HttpStatus.SERVICE_UNAVAILABLE,
@@ -90,6 +79,8 @@ export class SpacesController {
     @Param('spaceId') spaceId: string,
     @Body() spaceData: any,
   ): { message: string } {
+    void spaceId;
+    void spaceData;
     throw new HttpException(
       'This feature is currently disabled',
       HttpStatus.SERVICE_UNAVAILABLE,
@@ -103,6 +94,7 @@ export class SpacesController {
   @ApiResponse({ status: 404, description: 'Space not found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   deleteSpace(@Param('spaceId') spaceId: string): { message: string } {
+    void spaceId;
     throw new HttpException(
       'This feature is currently disabled',
       HttpStatus.SERVICE_UNAVAILABLE,

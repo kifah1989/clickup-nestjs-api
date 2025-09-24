@@ -7,6 +7,7 @@ The existing NestJS ClickUp API integration has been successfully upgraded with 
 ### ✅ 1. Authentication & Authorization
 
 #### JWT-Based Authentication with Passport.js
+
 - **Files Created/Modified:**
   - `src/auth/auth.module.ts` - JWT module configuration
   - `src/auth/auth.service.ts` - Authentication business logic
@@ -16,6 +17,7 @@ The existing NestJS ClickUp API integration has been successfully upgraded with 
   - `src/auth/global-jwt-auth.guard.ts` - Global auth guard with public route support
 
 #### User Management & Role-Based Access Control
+
 - **User Model with Roles:**
   - ADMIN: Full system access
   - EDITOR: Can create, update, delete ClickUp resources
@@ -30,8 +32,9 @@ The existing NestJS ClickUp API integration has been successfully upgraded with 
 ### ✅ 2. Rate Limiting & DDoS Protection
 
 #### Multi-Tier Rate Limiting with @nestjs/throttler
+
 - **Short-term:** 10 requests per minute
-- **Medium-term:** 100 requests per 10 minutes  
+- **Medium-term:** 100 requests per 10 minutes
 - **Long-term:** 1000 requests per hour
 - **Per-route overrides:** Configurable throttling for sensitive endpoints
 - **Global application:** Automatic rate limiting on all endpoints
@@ -39,7 +42,9 @@ The existing NestJS ClickUp API integration has been successfully upgraded with 
 ### ✅ 3. Database Integration & Monitoring
 
 #### Prisma ORM with PostgreSQL
+
 - **Database Schema:**
+
   ```prisma
   model User {
     id           Int       @id @default(autoincrement())
@@ -63,6 +68,7 @@ The existing NestJS ClickUp API integration has been successfully upgraded with 
   ```
 
 #### API Usage Tracking & Monitoring
+
 - **Per-user API logging:** Every authenticated request tracked
 - **Comprehensive metrics:** Endpoint, method, response time, status codes
 - **Files Created:**
@@ -74,16 +80,18 @@ The existing NestJS ClickUp API integration has been successfully upgraded with 
 ### ✅ 4. Enhanced Environment Security
 
 #### Secure Configuration Management
+
 - **Environment validation:** Required variables checked at startup
 - **JWT secret management:** Configurable token expiration
 - **Updated .env configuration:**
+
   ```env
   # Security Configuration
   JWT_SECRET=your_very_secure_jwt_secret_change_this_in_production_min_32_chars_long
   JWT_EXPIRES_IN=1d
   DATABASE_URL="postgresql://username:password@localhost:5432/clickup_api?schema=public"
-  
-  # Rate Limiting Configuration  
+
+  # Rate Limiting Configuration
   THROTTLE_TTL=60000
   THROTTLE_LIMIT=10
   ```
@@ -91,6 +99,7 @@ The existing NestJS ClickUp API integration has been successfully upgraded with 
 ### ✅ 5. Structured Logging & Security Monitoring
 
 #### Winston-Based Logging with Security Features
+
 - **Sensitive data redaction:** Automatic removal of tokens/passwords from logs
 - **Multiple log levels:** Error, info, debug with separate files
 - **JSON structured logging:** Machine-readable log format
@@ -101,6 +110,7 @@ The existing NestJS ClickUp API integration has been successfully upgraded with 
 ### ✅ 6. Enhanced Swagger Documentation
 
 #### Production-Ready API Documentation
+
 - **JWT Bearer Authentication:** Integrated authentication in Swagger UI
 - **Security schemas:** Proper authentication documentation
 - **Interactive testing:** Test authenticated endpoints directly from Swagger
@@ -109,6 +119,7 @@ The existing NestJS ClickUp API integration has been successfully upgraded with 
 ### ✅ 7. Global Security Architecture
 
 #### Protected Route System
+
 - **Global JWT Guard:** All ClickUp routes protected by default
 - **Public route exceptions:** Health checks, auth endpoints, documentation
 - **Comprehensive route protection:** Tasks, Spaces, Lists, Users all secured
@@ -120,17 +131,20 @@ The existing NestJS ClickUp API integration has been successfully upgraded with 
 ## 🔒 Security Features Summary
 
 ### Authentication Flow
+
 1. **User Registration:** `POST /auth/register` with email, password, role
 2. **User Login:** `POST /auth/login` returns JWT token
 3. **Authenticated Requests:** Include `Authorization: Bearer <token>` header
 4. **Role-based Access:** Automatic role checking on protected endpoints
 
-### Rate Limiting Protection  
+### Rate Limiting Protection
+
 - **Automatic throttling:** Prevents brute force and DDoS attacks
 - **Configurable limits:** Adjust based on usage patterns
 - **Multiple time windows:** Short, medium, and long-term protection
 
 ### Data Security
+
 - **Password hashing:** bcrypt with configurable salt rounds
 - **JWT token security:** Configurable expiration and secure secrets
 - **Sensitive data redaction:** Logs automatically clean sensitive information
@@ -163,7 +177,7 @@ src/
 │       └── api-logging.middleware.ts
 ├── clickup/                       # 🔒 Now Protected
 │   ├── tasks/                     # JWT required
-│   ├── spaces/                    # JWT required  
+│   ├── spaces/                    # JWT required
 │   ├── lists/                     # JWT required
 │   └── users/                     # JWT required
 ├── logs/                          # 🆕 Application Logs
@@ -177,25 +191,29 @@ src/
 ## 🚀 How to Use the Enhanced API
 
 ### 1. Start the Application
+
 ```bash
 npm run start:dev
 ```
 
 ### 2. Access Swagger Documentation
+
 - **URL:** http://localhost:3000/api/docs
 - **Features:** Interactive JWT authentication, test all endpoints
 
 ### 3. Register a User
+
 ```bash
 POST /auth/register
 {
   "email": "admin@example.com",
-  "password": "securepassword123", 
+  "password": "securepassword123",
   "role": "ADMIN"
 }
 ```
 
 ### 4. Login and Get JWT Token
+
 ```bash
 POST /auth/login
 {
@@ -205,6 +223,7 @@ POST /auth/login
 ```
 
 ### 5. Use JWT Token for Protected Endpoints
+
 ```bash
 GET /api/tasks/list/YOUR_LIST_ID
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
@@ -213,12 +232,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ## 📊 Monitoring & Analytics
 
 ### API Usage Tracking
+
 - Every authenticated request logged to database
 - Per-user usage analytics
 - Response time monitoring
 - Error rate tracking
 
 ### Security Monitoring
+
 - Rate limit violations logged
 - Authentication failures tracked
 - Sensitive data automatically redacted from logs
@@ -227,6 +248,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ## 🎯 Production Readiness
 
 ### Security Checklist ✅
+
 - [x] JWT-based authentication implemented
 - [x] Role-based authorization configured
 - [x] Password security with bcrypt hashing
@@ -239,6 +261,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 - [x] Health monitoring endpoints
 
 ### Documentation ✅
+
 - [x] Complete Swagger/OpenAPI documentation
 - [x] Security schemas documented
 - [x] Authentication flow documented
@@ -250,7 +273,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 The ClickUp NestJS API integration has been successfully transformed from a basic API wrapper into a **production-ready, enterprise-grade security platform** with:
 
 - ✅ **Complete authentication & authorization system**
-- ✅ **Advanced rate limiting & DDoS protection** 
+- ✅ **Advanced rate limiting & DDoS protection**
 - ✅ **Comprehensive database integration & monitoring**
 - ✅ **Security-first logging & data protection**
 - ✅ **Production-ready configuration management**

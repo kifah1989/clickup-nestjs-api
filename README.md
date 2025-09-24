@@ -17,12 +17,14 @@ This is a **complete enterprise-grade backend application** featuring:
 This application implements **enterprise-grade security** with:
 
 ### 🔐 Authentication & Authorization
+
 - **JWT Authentication**: Secure token-based authentication system
 - **Role-Based Access Control (RBAC)**: Admin, Editor, and Viewer roles
 - **Password Security**: bcrypt hashing with proper salt rounds
 - **Token Management**: Configurable JWT expiration and refresh
 
 ### 🚨 Security Hardening
+
 - **Rate Limiting**: Multi-tier protection (10 requests/minute, 100/hour, 1000/day)
 - **Input Validation**: Comprehensive DTO validation with class-validator
 - **Environment Security**: Secure configuration management
@@ -30,12 +32,14 @@ This application implements **enterprise-grade security** with:
 - **Security Headers**: HTTP security headers enabled
 
 ### 📊 Monitoring & Logging
+
 - **Structured Logging**: Winston-based logging with multiple levels
 - **API Audit Trail**: Database logging of all API requests
 - **Error Tracking**: Comprehensive error handling and reporting
 - **Performance Monitoring**: Request timing and performance metrics
 
 ### � Database Integration
+
 - **PostgreSQL**: Production-grade database with Prisma ORM
 - **User Management**: Complete user lifecycle management
 - **Audit Logging**: Comprehensive API request logging
@@ -44,6 +48,7 @@ This application implements **enterprise-grade security** with:
 ## ✨ Features
 
 ### Core API Features
+
 - 🔐 **Secure ClickUp Integration**: Protected API wrapper with authentication
 - 📊 **Full CRUD Operations**: Complete management for Tasks, Spaces, Lists, and Users
 - 🎯 **Input Validation**: Comprehensive DTOs with class-validator
@@ -52,6 +57,7 @@ This application implements **enterprise-grade security** with:
 - 🧪 **TypeScript**: Full type safety with strict mode enabled
 
 ### Authentication Features
+
 - 🔑 **JWT Authentication**: Secure login/logout with token management
 - 👥 **User Registration**: Secure user account creation
 - �️ **Role Management**: Admin, Editor, Viewer access levels
@@ -61,6 +67,7 @@ This application implements **enterprise-grade security** with:
 ## 🛠️ Technology Stack
 
 ### Core Framework
+
 - **Framework**: NestJS v11 with TypeScript
 - **Database**: PostgreSQL with Prisma ORM v6.16.2
 - **Authentication**: JWT (@nestjs/jwt, @nestjs/passport)
@@ -68,6 +75,7 @@ This application implements **enterprise-grade security** with:
 - **Documentation**: Swagger/OpenAPI with security schemas
 
 ### Security & Monitoring
+
 - **Rate Limiting**: @nestjs/throttler for DDoS protection
 - **Password Security**: bcryptjs for secure password hashing
 - **Logging**: Winston for structured, production-ready logging
@@ -75,6 +83,7 @@ This application implements **enterprise-grade security** with:
 - **Environment**: @nestjs/config for secure configuration management
 
 ### Development Tools
+
 - **TypeScript**: Strict mode enabled for maximum type safety
 - **ESLint**: Code quality and security linting
 - **Prettier**: Consistent code formatting
@@ -129,6 +138,7 @@ clickup-nestjs-api/
 ## 🏁 Getting Started
 
 ### Prerequisites
+
 - **Node.js** (version >= 20)
 - **PostgreSQL** (version >= 12)
 - **npm** or yarn package manager
@@ -137,6 +147,7 @@ clickup-nestjs-api/
 ### Installation
 
 1. **Clone and install dependencies**
+
    ```bash
    git clone <repository-url>
    cd clickup-nestjs-api
@@ -144,20 +155,22 @@ clickup-nestjs-api/
    ```
 
 2. **Database Setup**
+
    ```bash
    # Create PostgreSQL database
    createdb clickup_api
-   
+
    # Run database migrations
    npx prisma migrate dev --name init
-   
+
    # Seed default users (optional)
    npm run db:seed
    ```
 
 3. **Configure environment variables**
-   
+
    Update the `.env` file with your credentials:
+
    ```properties
    # ClickUp API Configuration
    CLICKUP_API_TOKEN=pk_your_personal_api_token_here
@@ -185,11 +198,11 @@ clickup-nestjs-api/
 
 The application includes pre-seeded test accounts:
 
-| Role | Email | Password | Access Level |
-|------|--------|----------|-------------|
-| **ADMIN** | `admin@clickup-api.com` | `Admin123!` | Full system access |
+| Role       | Email                    | Password     | Access Level         |
+| ---------- | ------------------------ | ------------ | -------------------- |
+| **ADMIN**  | `admin@clickup-api.com`  | `Admin123!`  | Full system access   |
 | **EDITOR** | `editor@clickup-api.com` | `Editor123!` | Create, read, update |
-| **VIEWER** | `viewer@clickup-api.com` | `Viewer123!` | Read-only access |
+| **VIEWER** | `viewer@clickup-api.com` | `Viewer123!` | Read-only access     |
 
 ### Getting Your ClickUp API Token
 
@@ -208,6 +221,7 @@ npm run start:dev
 ```
 
 **Available endpoints:**
+
 - 🚀 **Application**: http://localhost:3000
 - 📚 **API Documentation**: http://localhost:3000/api/docs
 - 🔐 **Authentication**: POST /auth/login
@@ -223,6 +237,7 @@ npm run start:prod
 ### 🔐 Authentication Quick Start
 
 1. **Login to get JWT token:**
+
    ```bash
    curl -X POST http://localhost:3000/auth/login \
      -H "Content-Type: application/json" \
@@ -230,6 +245,7 @@ npm run start:prod
    ```
 
 2. **Use token in subsequent requests:**
+
    ```bash
    curl -X GET http://localhost:3000/api/users/workspaces \
      -H "Authorization: Bearer YOUR_JWT_TOKEN"
@@ -237,24 +253,27 @@ npm run start:prod
 
 3. **Or use Swagger UI:**
    - Open http://localhost:3000/api/docs
-   - Click "Authorize" button  
+   - Click "Authorize" button
    - Enter: `Bearer YOUR_JWT_TOKEN`
 
 ## 📚 API Documentation
 
 ### Interactive Documentation
+
 Visit **http://localhost:3000/api/docs** for the complete Swagger documentation with JWT authentication support.
 
 ### Authentication Endpoints
 
 #### 🔐 Authentication & User Management
+
 - `POST /auth/login` - Authenticate user and receive JWT token
-- `POST /auth/register` - Register new user account  
+- `POST /auth/register` - Register new user account
 - `POST /auth/profile` - Get current user profile (requires JWT)
 
 ### ClickUp Integration Endpoints
 
 #### 📝 Tasks (🔒 JWT Required)
+
 - `GET /api/tasks/list/:listId` - Get tasks from a specific list
 - `GET /api/tasks/:taskId` - Get a specific task by ID
 - `POST /api/tasks/list/:listId` - Create a new task in a list
@@ -262,6 +281,7 @@ Visit **http://localhost:3000/api/docs** for the complete Swagger documentation 
 - `DELETE /api/tasks/:taskId` - Delete a task
 
 #### 🏠 Spaces (🔒 JWT Required)
+
 - `GET /api/spaces/workspace/:workspaceId` - Get spaces in a workspace
 - `GET /api/spaces/:spaceId` - Get a specific space by ID
 - `POST /api/spaces/workspace/:workspaceId` - Create a new space
@@ -269,6 +289,7 @@ Visit **http://localhost:3000/api/docs** for the complete Swagger documentation 
 - `DELETE /api/spaces/:spaceId` - Delete a space
 
 #### 📋 Lists (🔒 JWT Required)
+
 - `GET /api/lists/space/:spaceId` - Get lists in a space
 - `GET /api/lists/folder/:folderId` - Get lists in a folder
 - `GET /api/lists/:listId` - Get a specific list by ID
@@ -278,6 +299,7 @@ Visit **http://localhost:3000/api/docs** for the complete Swagger documentation 
 - `DELETE /api/lists/:listId` - Delete a list
 
 #### 👥 Users & Workspaces (🔒 JWT Required)
+
 - `GET /api/users/workspaces` - Get authorized workspaces
 - `GET /api/users/me` - Get current user info
 - `GET /api/users/workspace/:workspaceId/members` - Get workspace members
@@ -287,18 +309,19 @@ Visit **http://localhost:3000/api/docs** for the complete Swagger documentation 
 
 ### Role-Based Access Control
 
-| Endpoint | ADMIN | EDITOR | VIEWER |
-|----------|-------|--------|--------|
-| GET endpoints | ✅ | ✅ | ✅ |
-| POST/PUT endpoints | ✅ | ✅ | ❌ |
-| DELETE endpoints | ✅ | ❌ | ❌ |
-| User management | ✅ | ❌ | ❌ |
+| Endpoint           | ADMIN | EDITOR | VIEWER |
+| ------------------ | ----- | ------ | ------ |
+| GET endpoints      | ✅    | ✅     | ✅     |
+| POST/PUT endpoints | ✅    | ✅     | ❌     |
+| DELETE endpoints   | ✅    | ❌     | ❌     |
+| User management    | ✅    | ❌     | ❌     |
 
 ## 🛡️ Security Implementation
 
 ### Authentication Flow
 
 1. **User Registration/Login**
+
    ```bash
    POST /auth/login
    {
@@ -308,6 +331,7 @@ Visit **http://localhost:3000/api/docs** for the complete Swagger documentation 
    ```
 
 2. **Receive JWT Token**
+
    ```json
    {
      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -329,24 +353,27 @@ Visit **http://localhost:3000/api/docs** for the complete Swagger documentation 
 The application implements multi-tier rate limiting:
 
 - **Short-term**: 10 requests per minute
-- **Medium-term**: 100 requests per hour  
+- **Medium-term**: 100 requests per hour
 - **Long-term**: 1000 requests per day
 
 ### Security Features
 
 #### 🔒 Data Protection
+
 - **Password Hashing**: bcrypt with salt rounds
 - **JWT Tokens**: Secure token-based authentication
 - **Input Validation**: Comprehensive DTO validation
 - **SQL Injection Protection**: Prisma ORM query protection
 
 #### 🚨 Monitoring & Logging
+
 - **API Audit Trail**: All requests logged to database
 - **Structured Logging**: Winston with multiple log levels
 - **Error Tracking**: Comprehensive error logging
 - **Performance Metrics**: Request timing and monitoring
 
 #### �️ Production Security
+
 - **Environment Variables**: Secure configuration management
 - **CORS Configuration**: Proper cross-origin resource sharing
 - **Security Headers**: HTTP security headers enabled
@@ -357,6 +384,7 @@ The application implements multi-tier rate limiting:
 ### Authentication Testing
 
 1. **Login with Default Admin Account**
+
    ```bash
    curl -X POST http://localhost:3000/auth/login \
      -H "Content-Type: application/json" \
@@ -379,12 +407,14 @@ The application implements multi-tier rate limiting:
 **Note**: Replace `YOUR_JWT_TOKEN` with the token from login response.
 
 1. **Get Your Workspaces (Protected)**
+
    ```bash
    curl -X GET http://localhost:3000/api/users/workspaces \
      -H "Authorization: Bearer YOUR_JWT_TOKEN"
    ```
 
 2. **Get User Profile (Protected)**
+
    ```bash
    curl -X GET http://localhost:3000/auth/profile \
      -H "Authorization: Bearer YOUR_JWT_TOKEN"
@@ -417,32 +447,35 @@ done
 
 ### Environment Variables
 
-| Variable | Description | Default | Required |
-|----------|-------------|---------|----------|
-| `CLICKUP_API_TOKEN` | Your ClickUp personal API token | - | ✅ |
-| `CLICKUP_API_BASE_URL` | ClickUp API base URL | `https://api.clickup.com/api/v2` | ✅ |
-| `DATABASE_URL` | PostgreSQL connection string | - | ✅ |
-| `JWT_SECRET` | JWT signing secret (min 32 chars) | - | ✅ |
-| `JWT_EXPIRES_IN` | JWT token expiration time | `1d` | ❌ |
-| `PORT` | Application server port | `3000` | ❌ |
-| `NODE_ENV` | Environment mode | `development` | ❌ |
-| `THROTTLE_TTL` | Rate limit time window (ms) | `60000` | ❌ |
-| `THROTTLE_LIMIT` | Rate limit max requests | `10` | ❌ |
+| Variable               | Description                       | Default                          | Required |
+| ---------------------- | --------------------------------- | -------------------------------- | -------- |
+| `CLICKUP_API_TOKEN`    | Your ClickUp personal API token   | -                                | ✅       |
+| `CLICKUP_API_BASE_URL` | ClickUp API base URL              | `https://api.clickup.com/api/v2` | ✅       |
+| `DATABASE_URL`         | PostgreSQL connection string      | -                                | ✅       |
+| `JWT_SECRET`           | JWT signing secret (min 32 chars) | -                                | ✅       |
+| `JWT_EXPIRES_IN`       | JWT token expiration time         | `1d`                             | ❌       |
+| `PORT`                 | Application server port           | `3000`                           | ❌       |
+| `NODE_ENV`             | Environment mode                  | `development`                    | ❌       |
+| `THROTTLE_TTL`         | Rate limit time window (ms)       | `60000`                          | ❌       |
+| `THROTTLE_LIMIT`       | Rate limit max requests           | `10`                             | ❌       |
 
 ### Security Configuration
 
 #### JWT Configuration
+
 ```env
 JWT_SECRET=your_very_secure_jwt_secret_change_this_in_production_min_32_chars
 JWT_EXPIRES_IN=1d  # Options: 1h, 1d, 7d, 30d
 ```
 
 #### Database Configuration
+
 ```env
 DATABASE_URL="postgresql://username:password@localhost:5432/clickup_api?schema=public"
 ```
 
 #### Rate Limiting Configuration
+
 ```env
 THROTTLE_TTL=60000    # 1 minute
 THROTTLE_LIMIT=10     # 10 requests per minute
@@ -452,18 +485,19 @@ THROTTLE_LIMIT=10     # 10 requests per minute
 
 ### HTTP Status Codes
 
-| Code | Description | Security Implication |
-|------|-------------|---------------------|
-| **400** | Bad Request - Invalid input data | Input validation protection |
-| **401** | Unauthorized - Invalid/missing JWT token | Authentication required |
-| **403** | Forbidden - Insufficient permissions | Role-based access control |
-| **404** | Not Found - Resource doesn't exist | Resource protection |
-| **429** | Too Many Requests - Rate limit exceeded | DDoS protection |
-| **500** | Internal Server Error - Server issues | Error logging enabled |
+| Code    | Description                              | Security Implication        |
+| ------- | ---------------------------------------- | --------------------------- |
+| **400** | Bad Request - Invalid input data         | Input validation protection |
+| **401** | Unauthorized - Invalid/missing JWT token | Authentication required     |
+| **403** | Forbidden - Insufficient permissions     | Role-based access control   |
+| **404** | Not Found - Resource doesn't exist       | Resource protection         |
+| **429** | Too Many Requests - Rate limit exceeded  | DDoS protection             |
+| **500** | Internal Server Error - Server issues    | Error logging enabled       |
 
 ### Security Error Responses
 
 #### Authentication Errors
+
 ```json
 {
   "statusCode": 401,
@@ -474,6 +508,7 @@ THROTTLE_LIMIT=10     # 10 requests per minute
 ```
 
 #### Rate Limiting Errors
+
 ```json
 {
   "statusCode": 429,
@@ -483,6 +518,7 @@ THROTTLE_LIMIT=10     # 10 requests per minute
 ```
 
 #### Validation Errors
+
 ```json
 {
   "statusCode": 400,
@@ -497,6 +533,7 @@ THROTTLE_LIMIT=10     # 10 requests per minute
 ### Logging & Monitoring
 
 All security events are logged with structured data:
+
 - Authentication attempts (success/failure)
 - Authorization violations
 - Rate limiting triggers
@@ -506,6 +543,7 @@ All security events are logged with structured data:
 ## 📦 Available Scripts
 
 ### Application Scripts
+
 ```bash
 npm run start         # Start in development mode
 npm run start:dev     # Start with file watching and hot reload
@@ -519,6 +557,7 @@ npm run format        # Format code with Prettier
 ```
 
 ### Database Scripts
+
 ```bash
 npm run db:seed       # Seed database with default users
 npx prisma migrate dev         # Run database migrations
@@ -528,6 +567,7 @@ npx prisma migrate reset     # Reset database (development only)
 ```
 
 ### Development Tools
+
 ```bash
 npx prisma db push           # Push schema changes without migration
 npx prisma db pull           # Pull schema from existing database
@@ -539,6 +579,7 @@ npx prisma format           # Format Prisma schema file
 ### Common Issues
 
 #### Database Connection Issues
+
 ```bash
 # Error: "Authentication failed against database server"
 # Solution: Update DATABASE_URL in .env with valid PostgreSQL credentials
@@ -546,6 +587,7 @@ DATABASE_URL="postgresql://real_username:real_password@localhost:5432/clickup_ap
 ```
 
 #### JWT Authentication Issues
+
 ```bash
 # Error: "Unauthorized - Invalid JWT token"
 # Solution 1: Ensure JWT_SECRET is set and at least 32 characters
@@ -556,6 +598,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
 #### Rate Limiting Issues
+
 ```bash
 # Error: "Too Many Requests"
 # Solution: Wait for rate limit reset or adjust THROTTLE_* settings
@@ -564,6 +607,7 @@ THROTTLE_LIMIT=10      # Max requests per window
 ```
 
 #### ClickUp API Issues
+
 ```bash
 # Error: "Invalid ClickUp API token"
 # Solution: Get fresh token from ClickUp Settings → Apps → API Token
@@ -581,6 +625,7 @@ CLICKUP_API_TOKEN=pk_your_fresh_api_token_here
 ### Production Deployment
 
 1. **Environment Setup**
+
    ```bash
    NODE_ENV=production
    DATABASE_URL=postgresql://prod_user:prod_pass@prod_host:5432/prod_db
@@ -588,6 +633,7 @@ CLICKUP_API_TOKEN=pk_your_fresh_api_token_here
    ```
 
 2. **Database Setup**
+
    ```bash
    npx prisma migrate deploy  # Run migrations in production
    npm run db:seed            # Seed initial data
@@ -612,11 +658,13 @@ CLICKUP_API_TOKEN=pk_your_fresh_api_token_here
 ## 📚 Documentation & Resources
 
 ### Security Documentation
+
 - 📋 [**README-SECURITY.md**](./README-SECURITY.md) - Comprehensive security guide
 - 🔐 [**DEFAULT-CREDENTIALS.md**](./DEFAULT-CREDENTIALS.md) - Default test accounts
 - 📖 [**IMPLEMENTATION-SUMMARY.md**](./IMPLEMENTATION-SUMMARY.md) - Implementation details
 
 ### External Resources
+
 - [ClickUp API Documentation](https://developer.clickup.com/docs)
 - [NestJS Documentation](https://docs.nestjs.com/)
 - [Prisma Documentation](https://www.prisma.io/docs)
@@ -628,18 +676,21 @@ CLICKUP_API_TOKEN=pk_your_fresh_api_token_here
 This **enterprise-grade security platform** enables you to:
 
 ### 🏢 Enterprise Applications
+
 - **Secure API Gateways**: Production-ready API wrapper for ClickUp
 - **Multi-tenant SaaS**: Role-based access for multiple organizations
 - **Compliance Systems**: Audit trails and security logging for regulations
 - **Identity Management**: User authentication and authorization systems
 
 ### 🔒 Security-First Solutions
+
 - **Zero-Trust APIs**: JWT-based authentication with role verification
 - **Rate-Limited Services**: DDoS protection with configurable limits
 - **Audit Systems**: Complete API request logging and monitoring
 - **Secure Integrations**: Protected connections to third-party services
 
 ### 📊 Business Applications
+
 - **Custom Dashboards**: Secure data visualization platforms
 - **Workflow Automation**: Protected automation with proper authorization
 - **Team Management**: Role-based team collaboration tools
@@ -648,6 +699,7 @@ This **enterprise-grade security platform** enables you to:
 ## 🚀 Next Steps & Advanced Features
 
 ### Ready-to-Implement Enhancements
+
 - 🔄 **Real-time Updates**: WebSocket integration with JWT authentication
 - 📱 **Mobile Backend**: OAuth2/SAML for enterprise authentication
 - � **Containerization**: Docker deployment with security best practices
@@ -658,6 +710,7 @@ This **enterprise-grade security platform** enables you to:
 - 🌐 **Multi-tenancy**: Organization-level data isolation
 
 ### Security Enhancements
+
 - � **OAuth2/SAML**: Enterprise identity provider integration
 - 🛡️ **API Versioning**: Backward-compatible API evolution
 - � **Security Scanning**: Automated vulnerability assessment
@@ -674,8 +727,9 @@ This project is for educational and demonstration purposes. Please ensure compli
 ✅ **PRODUCTION-READY** - Enterprise-grade security implementation complete
 
 ### Security Implementation Status
+
 - [x] JWT Authentication with role-based access control
-- [x] Rate limiting and DDoS protection  
+- [x] Rate limiting and DDoS protection
 - [x] Database integration with audit logging
 - [x] Input validation and security hardening
 - [x] Structured logging and monitoring
@@ -683,6 +737,7 @@ This project is for educational and demonstration purposes. Please ensure compli
 - [x] Complete API documentation with security schemas
 
 ### Ready for Production Deployment
+
 This application implements enterprise-grade security features and is ready for production use with proper environment configuration and database setup.
 
 ---
