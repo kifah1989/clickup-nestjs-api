@@ -7,7 +7,13 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiParam,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 import { UsersService } from './users.service';
 import {
@@ -16,6 +22,7 @@ import {
 } from '../common/interfaces/clickup-response.interface';
 
 @ApiTags('Users & Workspaces')
+@ApiBearerAuth('JWT-auth')
 @Controller('api/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

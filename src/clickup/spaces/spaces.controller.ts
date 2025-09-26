@@ -16,12 +16,14 @@ import {
   ApiResponse,
   ApiParam,
   ApiQuery,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 import { SpacesService } from './spaces.service';
 import { ClickUpSpace } from '../common/interfaces/clickup-response.interface';
 
 @ApiTags('Spaces')
+@ApiBearerAuth('JWT-auth')
 @Controller('api/spaces')
 export class SpacesController {
   constructor(private readonly spacesService: SpacesService) {}

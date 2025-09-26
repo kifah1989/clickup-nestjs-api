@@ -16,12 +16,14 @@ import {
   ApiResponse,
   ApiParam,
   ApiQuery,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 import { ListsService } from './lists.service';
 import { ClickUpList } from '../common/interfaces/clickup-response.interface';
 
 @ApiTags('Lists')
+@ApiBearerAuth('JWT-auth')
 @Controller('api/lists')
 export class ListsController {
   constructor(private readonly listsService: ListsService) {}
