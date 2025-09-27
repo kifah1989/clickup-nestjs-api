@@ -675,12 +675,6 @@ CLICKUP_API_TOKEN=pk_your_fresh_api_token_here
 
 ## 📚 Documentation & Resources
 
-### Security Documentation
-
-- 📋 [**README-SECURITY.md**](./README-SECURITY.md) - Comprehensive security guide
-- 🔐 [**DEFAULT-CREDENTIALS.md**](./DEFAULT-CREDENTIALS.md) - Default test accounts
-- 📖 [**IMPLEMENTATION-SUMMARY.md**](./IMPLEMENTATION-SUMMARY.md) - Implementation details
-
 ### External Resources
 
 - [ClickUp API Documentation](https://developer.clickup.com/docs)
